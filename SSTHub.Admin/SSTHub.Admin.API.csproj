@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSTHub.Admin.Application\SSTHub.Admin.Application.csproj" />
+    <ProjectReference Include="..\SSTHub.Admin.Infrastructure\SSTHub.Admin.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
