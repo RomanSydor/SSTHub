@@ -8,10 +8,21 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
     public void Configure(EntityTypeBuilder<Employee> builder)
     {
-        builder.ToTable("CustomEmployees"); 
+        builder.ToTable("Employees"); 
 
         builder.HasKey(e => e.Id);
 
+        builder
+            .HasMany(e => e.Likes)
+            .WithOne(l => l.Employee)
+            .HasForeignKey(l => l.EmployeeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasMany(e => e.Comments)
+            .WithOne(c => c.Employee)
+            .HasForeignKey(c => c.EmployeeId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(e => e.FirstName).IsRequired().HasMaxLength(50);
         builder.Property(e => e.LastName).IsRequired().HasMaxLength(50);

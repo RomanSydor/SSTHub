@@ -8,9 +8,16 @@ namespace SSTHub.Admin.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.ToTable("CustomCustomers");
+            builder.ToTable("Customers");
 
             builder.HasKey(c => c.Id);
+
+            builder
+                .HasMany(e => e.Events)
+                .WithOne(c => c.Customer)
+                .HasForeignKey(e => e.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             builder.Property(c => c.FirstName).IsRequired().HasMaxLength(50);
             builder.Property(c => c.LastName).IsRequired().HasMaxLength(50);

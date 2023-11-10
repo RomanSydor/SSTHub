@@ -13,4 +13,5 @@ public class Customer
     public string Phone { get; set; } 
 
     public string PasswordHash { get; set; } 
+    public ICollection<Event> Events { get; set; }
 }
