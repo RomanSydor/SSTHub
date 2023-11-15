@@ -1,5 +1,5 @@
-using SSTHub.Admin.Application;
-using SSTHub.Admin.Infrastructure;
+using SSTHub.Application;
+using SSTHub.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

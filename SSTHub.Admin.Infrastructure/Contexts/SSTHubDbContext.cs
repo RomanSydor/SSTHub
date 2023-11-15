@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SSTHub.Admin.Domain.Entities;
+using SSTHub.Domain.Entities;
 using System.Reflection;
 
-namespace SSTHub.Admin.Infrastructure.Contexts;
+namespace SSTHub.Infrastructure.Contexts;
 
 public class SSTHubDbContext : DbContext
 {

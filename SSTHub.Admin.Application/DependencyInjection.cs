@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace SSTHub.Admin.Application;
+namespace SSTHub.Application;
 
 public static class DependencyInjection
 {

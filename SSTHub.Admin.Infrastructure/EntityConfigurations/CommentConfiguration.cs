@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SSTHub.Admin.Domain.Entities;
+using SSTHub.Domain.Entities;
 
-namespace SSTHub.Admin.Infrastructure.EntityConfigurations;
+namespace SSTHub.Infrastructure.EntityConfigurations;
 
 public class CommentConfiguration : IEntityTypeConfiguration<Comment>
 {

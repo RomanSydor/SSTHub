@@ -1,4 +1,4 @@
-﻿namespace SSTHub.Admin.Domain.Entities;
+﻿namespace SSTHub.Domain.Entities;
 
 public class Barbershop
 {
