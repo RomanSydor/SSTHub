@@ -1,6 +1,6 @@
-﻿using SSTHub.Admin.Domain.Common.Enums;
+﻿using SSTHub.Domain.Common.Enums;
 
-namespace SSTHub.Admin.Domain.Entities;
+namespace SSTHub.Domain.Entities;
 
 public class Event
 {

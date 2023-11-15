@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SSTHub.Admin.Domain\SSTHub.Admin.Domain.csproj" />
+    <ProjectReference Include="..\SSTHub.Admin.Domain\SSTHub.Domain.csproj" />
   </ItemGroup>
 
 </Project>

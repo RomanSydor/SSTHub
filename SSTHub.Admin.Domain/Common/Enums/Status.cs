@@ -1,4 +1,4 @@
-﻿namespace SSTHub.Admin.Domain.Common.Enums;
+﻿namespace SSTHub.Domain.Common.Enums;
 
 public enum Status
 {
