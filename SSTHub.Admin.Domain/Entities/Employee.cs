@@ -12,6 +12,11 @@ public class Employee
 
     public Rank Rank { get; set; }
 
+
+    public Barbershop Barbershop { get; set; }
+    public Guid BarbershopId { get; set; }
+
+    public ICollection<Event> Events { get; } = new List<Event>();
     public ICollection<Service> Services { get; } = new List<Service>();
     public ICollection<Like> Likes { get; } = new List<Like>();
     public ICollection<Comment> Comments { get; } = new List<Comment>();

@@ -11,7 +11,7 @@ public class Barbershop
     public string Location { get; set; }
 
 
-
+    public ICollection<Event> Events { get; } = new List<Event>();
     public ICollection<Employee> Employees { get; } = new List<Employee>();
     public ICollection<Like> Likes { get; } = new List<Like>();
     public ICollection<Comment> Comments { get; } = new List<Comment>();

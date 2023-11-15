@@ -18,10 +18,7 @@ public class RankConfiguration : IEntityTypeConfiguration<Rank>
             .HasForeignKey(e => e.RankId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.Property(r => r.Name)
-            .IsRequired()
-            .HasMaxLength(50);
-        builder.Property(r => r.Premium)
-            .HasColumnType("decimal(18,2)");
+        builder.Property(r => r.Name).IsRequired().HasMaxLength(50);
+        builder.Property(r => r.Premium).HasColumnType("decimal(18,2)");
     }
 }
