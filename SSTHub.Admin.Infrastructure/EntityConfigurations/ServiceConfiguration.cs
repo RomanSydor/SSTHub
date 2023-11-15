@@ -12,6 +12,12 @@ public class ServiceConfiguration : IEntityTypeConfiguration<Service>
 
         builder.HasKey(s => s.Id);
 
+        builder
+            .HasMany(s => s.Events)
+            .WithOne(e => e.Service)
+            .HasForeignKey(e => e.ServiceId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.Property(s => s.Name).IsRequired().HasMaxLength(50);
         builder.Property(s => s.Description).HasMaxLength(250);
         builder.Property(s => s.Duration).IsRequired();

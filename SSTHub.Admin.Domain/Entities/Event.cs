@@ -12,5 +12,8 @@ public class Event
     public DateTime StartDate { get; set; }
     public Status Status { get; set; }
     
+    public Employee Employee { get; set; }
     public Customer Customer { get; set; }
+    public Barbershop Barbershop { get; set; }
+    public Service Service { get; set; }
 }

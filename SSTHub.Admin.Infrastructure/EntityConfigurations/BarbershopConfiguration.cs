@@ -13,6 +13,18 @@ public class BarbershopConfiguration : IEntityTypeConfiguration<Barbershop>
         builder.HasKey(b => b.Id);
 
         builder
+            .HasMany(b => b.Events)
+            .WithOne(e => e.Barbershop)
+            .HasForeignKey(e => e.BarbershopId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasMany(b => b.Employees)
+            .WithOne(e => e.Barbershop)
+            .HasForeignKey(e => e.BarbershopId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
             .HasMany(b => b.Likes)
             .WithOne(l => l.Barbershop)
             .HasForeignKey(l => l.BarbershopId)

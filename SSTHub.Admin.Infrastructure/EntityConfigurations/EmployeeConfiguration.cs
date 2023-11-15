@@ -13,6 +13,18 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder.HasKey(e => e.Id);
 
         builder
+            .HasMany(e => e.Events)
+            .WithOne(e => e.Employee)
+            .HasForeignKey(e => e.EmployeeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasMany(e => e.Services)
+            .WithOne(s => s.Employee)
+            .HasForeignKey(s => s.EmployeeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
             .HasMany(e => e.Likes)
             .WithOne(l => l.Employee)
             .HasForeignKey(l => l.EmployeeId)
