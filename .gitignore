@@ -361,5 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/src/.vs/SSTHub/DesignTimeBuild/.dtbcache.v2
-/src/.vs/SSTHub/v17/.suo
+/src/.vs/SSTHub/DesignTimeBuild
+/src/.vs/ProjectEvaluation
+/src/.vs/SSTHub/v17
+/src/.vs/SSTHub/FileContentIndex
