@@ -364,3 +364,7 @@ FodyWeavers.xsd
 
 *.suo
 *.vsidx
+/src/.vs/SSTHub/v17/.futdcache.v2
+/src/.vs/SSTHub/DesignTimeBuild/.dtbcache.v2
+/src/.vs/ProjectEvaluation/ssthub.projects.v5.2
+/src/.vs/ProjectEvaluation/ssthub.metadata.v5.2
