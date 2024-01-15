@@ -1,4 +1,4 @@
-﻿namespace SSTHub.Domain.Entities.Enums
+﻿namespace SSTHub.Domain.Enums
 {
     public enum EventStatuses : byte
     {

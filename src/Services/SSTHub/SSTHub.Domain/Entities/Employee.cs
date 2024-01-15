@@ -1,5 +1,5 @@
-﻿using SSTHub.Domain.Entities.Enums;
-using SSTHub.Domain.Entities.Interfaces;
+﻿using SSTHub.Domain.Entities.Interfaces;
+using SSTHub.Domain.Enums;
 
 namespace SSTHub.Domain.Entities
 {
@@ -13,5 +13,12 @@ namespace SSTHub.Domain.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public EmployeePositions Position { get; set; }
+        public int HubId { get; set; }
+
+        public Hub Hub { get; set; }
+
+        //public ICollection<Service> Services { get; set; }
+        public ICollection<Event> Events { get; set; }
+
     }
 }
