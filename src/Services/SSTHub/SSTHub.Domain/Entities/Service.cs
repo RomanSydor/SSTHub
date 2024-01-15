@@ -10,10 +10,8 @@ namespace SSTHub.Domain.Entities
         public string Name { get; set; }
         public int DurationInMinutes { get; set; }
         public int Price { get; set; }
-        //public int EmployeeId { get; set; }
 
-        //public Employee Employee { get; set; }
-
+        public ICollection<Employee> Employees { get; set; }
         public ICollection<Event> Events { get; set; }
     }
 }

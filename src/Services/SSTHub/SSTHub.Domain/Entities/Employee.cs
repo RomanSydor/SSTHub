@@ -17,7 +17,7 @@ namespace SSTHub.Domain.Entities
 
         public Hub Hub { get; set; }
 
-        //public ICollection<Service> Services { get; set; }
+        public ICollection<Service> Services { get; set; }
         public ICollection<Event> Events { get; set; }
 
     }

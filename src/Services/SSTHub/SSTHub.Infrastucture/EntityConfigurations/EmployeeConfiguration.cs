@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SSTHub.Domain.Entities;
 
@@ -23,11 +24,9 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                 .Property(u => u.IsActive)
                 .HasDefaultValue(true);
 
-            //builder
-            //    .HasMany(e => e.Services)
-            //    .WithOne(s => s.Employee)
-            //    .HasForeignKey(s => s.EmployeeId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder
+                .HasMany(e => e.Services)
+                .WithMany(s => s.Employees);
 
             builder
                 .HasMany(e => e.Events)
