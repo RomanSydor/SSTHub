@@ -26,6 +26,23 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                 .WithOne(e => e.Hub)
                 .HasForeignKey(e => e.HubId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasData(
+                new Hub
+                {
+                    Id = 1,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 1, 14, 16, 0, 0),
+                    Name = "TestHub1",
+                },
+                new Hub
+                {
+                    Id = 2,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 2, 1, 11, 0, 0),
+                    Name = "TestHub2",
+                }
+            );
         }
     }
 }

@@ -20,6 +20,27 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                 .WithOne(e => e.Service)
                 .HasForeignKey(e => e.ServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(
+                new Service
+                {
+                    Id = 1,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 12, 14, 16, 0, 0),
+                    Name = "TestService1",
+                    DurationInMinutes = 60,
+                    Price = 100,
+                },
+                new Service
+                {
+                    Id = 2,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 12, 14, 16, 0, 0),
+                    Name = "TestService2",
+                    DurationInMinutes = 60,
+                    Price = 100,
+                }
+            );
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SSTHub.Infrastucture.Contexts;
 
@@ -11,9 +12,11 @@ using SSTHub.Infrastucture.Contexts;
 namespace SSTHub.Infrastucture.Migrations
 {
     [DbContext(typeof(SSTHubDbContext))]
-    partial class SSTHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240116135409_updateData")]
+    partial class updateData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,28 +38,6 @@ namespace SSTHub.Infrastucture.Migrations
                     b.HasIndex("ServicesId");
 
                     b.ToTable("EmployeeService");
-
-                    b.HasData(
-                        new
-                        {
-                            EmployeesId = 1,
-                            ServicesId = 1
-                        },
-                        new
-                        {
-                            EmployeesId = 1,
-                            ServicesId = 2
-                        },
-                        new
-                        {
-                            EmployeesId = 2,
-                            ServicesId = 1
-                        },
-                        new
-                        {
-                            EmployeesId = 2,
-                            ServicesId = 2
-                        });
                 });
 
             modelBuilder.Entity("SSTHub.Domain.Entities.Customer", b =>
@@ -94,7 +75,7 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 1, 16, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 147, DateTimeKind.Local).AddTicks(2903),
                             Email = "testRA@test.com",
                             FirstName = "Roman",
                             LastName = "Aaaa",
@@ -103,7 +84,7 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 1, 14, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 147, DateTimeKind.Local).AddTicks(2994),
                             Email = "testIB@test.com",
                             FirstName = "Ivan",
                             LastName = "BBBB",
@@ -165,7 +146,7 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 8, 25, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 148, DateTimeKind.Local).AddTicks(2483),
                             Email = "testDW@test.com",
                             FirstName = "Dmytro",
                             HubId = 1,
@@ -177,7 +158,7 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 12, 2, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 148, DateTimeKind.Local).AddTicks(2523),
                             Email = "testPA@test.com",
                             FirstName = "Petro",
                             HubId = 2,
@@ -236,25 +217,25 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 1, 16, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 148, DateTimeKind.Local).AddTicks(5833),
                             CustomerId = 1,
                             EmployeeId = 1,
                             HubId = 1,
                             IsActive = true,
                             ServiceId = 1,
-                            StartAt = new DateTime(2024, 1, 18, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartAt = new DateTime(2024, 1, 17, 15, 54, 9, 148, DateTimeKind.Local).AddTicks(5863),
                             Status = (byte)0
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 1, 14, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 148, DateTimeKind.Local).AddTicks(5875),
                             CustomerId = 2,
                             EmployeeId = 2,
                             HubId = 2,
                             IsActive = true,
                             ServiceId = 2,
-                            StartAt = new DateTime(2024, 1, 16, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartAt = new DateTime(2024, 1, 15, 15, 54, 9, 148, DateTimeKind.Local).AddTicks(5878),
                             Status = (byte)1
                         });
                 });
@@ -288,14 +269,14 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 1, 14, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 149, DateTimeKind.Local).AddTicks(2490),
                             IsActive = true,
                             Name = "TestHub1"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 2, 1, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 149, DateTimeKind.Local).AddTicks(2521),
                             IsActive = true,
                             Name = "TestHub2"
                         });
@@ -336,7 +317,7 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 12, 14, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 149, DateTimeKind.Local).AddTicks(7243),
                             DurationInMinutes = 60,
                             IsActive = true,
                             Name = "TestService1",
@@ -345,7 +326,7 @@ namespace SSTHub.Infrastucture.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 12, 14, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2024, 1, 16, 15, 54, 9, 149, DateTimeKind.Local).AddTicks(7280),
                             DurationInMinutes = 60,
                             IsActive = true,
                             Name = "TestService2",
