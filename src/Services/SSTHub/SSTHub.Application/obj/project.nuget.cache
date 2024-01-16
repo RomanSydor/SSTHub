@@ -1,14 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "ODbGJwQZgcfq3hv3Dx/uACRqSZVvEqASDG4z7zW1ELT9znbbdwPt7XKOcR5YkWB2HfE/pQRyfPvaprSeLcNWdg==",
+  "dgSpecHash": "K8QQiBO8z0Keet9+0vHYxPGuvLGnG/QYm+PgMhS97OMgj3h9DeZpDsQOVS5Zb0FAuo+T0wYvzVUPZWOHSQYRZw==",
   "success": true,
   "projectFilePath": "C:\\Projects\\SSTHub\\src\\Services\\SSTHub\\SSTHub.Application\\SSTHub.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\r.sydor\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\r.sydor\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\r.sydor\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\r.sydor\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\r.sydor\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
-    "C:\\Users\\r.sydor\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\r.sydor\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\r.sydor\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
     "C:\\Users\\r.sydor\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.0\\microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
     "C:\\Users\\r.sydor\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.15\\microsoft.entityframeworkcore.7.0.15.nupkg.sha512",

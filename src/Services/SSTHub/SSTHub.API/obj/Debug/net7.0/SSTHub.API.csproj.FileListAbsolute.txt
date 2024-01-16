@@ -78,3 +78,6 @@ C:\Projects\SSTHub\src\Services\SSTHub\SSTHub.API\bin\Debug\net7.0\SSTHub.Domain
 C:\Projects\SSTHub\src\Services\SSTHub\SSTHub.API\bin\Debug\net7.0\SSTHub.Infrastucture.dll
 C:\Projects\SSTHub\src\Services\SSTHub\SSTHub.API\bin\Debug\net7.0\SSTHub.Infrastucture.pdb
 C:\Projects\SSTHub\src\Services\SSTHub\SSTHub.API\bin\Debug\net7.0\SSTHub.Domain.pdb
+C:\Projects\SSTHub\src\Services\SSTHub\SSTHub.API\bin\Debug\net7.0\AutoMapper.dll
+C:\Projects\SSTHub\src\Services\SSTHub\SSTHub.API\bin\Debug\net7.0\SSTHub.Application.dll
+C:\Projects\SSTHub\src\Services\SSTHub\SSTHub.API\bin\Debug\net7.0\SSTHub.Application.pdb
