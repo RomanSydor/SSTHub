@@ -1,4 +1,5 @@
 using SSTHub.API.ServiceConfigurations;
+using SSTHub.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddDataBaseContext(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddMapper(builder.Configuration);
+builder.Services.AddCorsConfig();
+
 
 var app = builder.Build();
 
@@ -24,6 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

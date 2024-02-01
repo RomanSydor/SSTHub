@@ -29,5 +29,19 @@ namespace SSTHub.API.ServiceConfigurations
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
         }
+
+        public static void AddCorsConfig(this IServiceCollection services)
+        {
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                });
+            });
+        }
     }
 }
