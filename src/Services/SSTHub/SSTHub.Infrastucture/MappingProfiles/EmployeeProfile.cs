@@ -9,6 +9,7 @@ namespace SSTHub.Infrastucture.MappingProfiles
         public EmployeeProfile() 
         {
             CreateMap<Employee, EmployeeListItemViewModel>();
+            CreateMap<Employee, EmployeeDetailsViewModel>();
         }
     }
 }

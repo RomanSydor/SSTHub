@@ -21,8 +21,67 @@ namespace SSTHub.API.Controllers
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAll([FromQuery] int amount = 20, [FromQuery] int page = 0)
         {
-            var vehicles = await _employeeService.GetAsync(amount, page);
-            return Ok(vehicles);
+            var employees = await _employeeService.GetAsync(amount, page);
+            return Ok(employees);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(EmployeeDetailsViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(EmployeeDetailsViewModel), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            var employee = await _employeeService.GetByIdAsync(id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(employee);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Edit([FromRoute]int id, [FromBody] EmployeeEditItemViewModel employeeEditItemViewModel)
+        {
+            bool result;
+
+            try
+            {
+                result = await _employeeService.UpdateAsync(id, employeeEditItemViewModel);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Something went wrong. " + e.Message });
+            }
+
+            if (!result)
+            {
+                return BadRequest(new { Message = "Something went wrong." });
+            }
+
+            return Ok(new { Message = "Updated" });
+        }
+
+        [HttpPatch("{id}/ActiveStatus")]
+        public async Task<IActionResult> ChangeActiveStatus([FromRoute] int id)
+        {
+            bool result;
+
+            try
+            {
+                result = await _employeeService.ChangeActiveStatusAsync(id);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Something went wrong. " + e.Message });
+            }
+
+            if (!result)
+            {
+                return BadRequest(new { Message = "Something went wrong." });
+            }
+
+            return Ok(new { Message = "Updated" });
         }
     }
 }

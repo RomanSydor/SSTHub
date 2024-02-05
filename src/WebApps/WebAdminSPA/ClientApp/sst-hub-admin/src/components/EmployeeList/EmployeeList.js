@@ -24,42 +24,23 @@ const EmployeeList = () => {
       <table>
         <thead>
           <tr>
-            <th>id</th>
-            <th>isActive</th>
             <th>createdAt</th>
             <th>firstName</th>
             <th>lastName</th>
-            <th>email</th>
-            <th>phone</th>
             <th>position</th>
-            <th>hubId</th>
           </tr>
         </thead>
         <tbody>
           {employees &&
             employees.map(
-              ({
-                id,
-                isActive,
-                createdAt,
-                firstName,
-                lastName,
-                email,
-                phone,
-                position,
-                hubId,
-              }) => (
+              ({ id, createdAt, firstName, lastName, position }) => (
                 <EmployeeListItem
                   key={id}
                   id={id}
-                  isActive={isActive}
                   createdAt={createdAt}
                   firstName={firstName}
                   lastName={lastName}
-                  email={email}
-                  phone={phone}
                   position={position}
-                  hubId={hubId}
                 />
               )
             )}

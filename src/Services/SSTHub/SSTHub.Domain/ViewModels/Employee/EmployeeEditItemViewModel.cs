@@ -1,13 +1,14 @@
 ﻿using SSTHub.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace SSTHub.Domain.ViewModels.Employee
 {
-    public class EmployeeListItemViewModel
+    public class EmployeeEditItemViewModel
     {
-        public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [Phone]
+        public string Phone { get; set; }
         public EmployeePositions Position { get; set; }
     }
 }
