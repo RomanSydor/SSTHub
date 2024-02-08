@@ -13,10 +13,10 @@
   "MultiProjectConfigurations": {
     "AdminApp": {
       "Projects": {
+        "SSTHub.Identity": {},
         "SSTHub.API": {},
         "WebAdminSPA": {}
       }
-      
     }
   }
 }

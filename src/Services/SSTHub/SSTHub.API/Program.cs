@@ -1,5 +1,4 @@
 using SSTHub.API.ServiceConfigurations;
-using SSTHub.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
