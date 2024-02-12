@@ -42,6 +42,7 @@ namespace SSTHub.Identity.Controllers.API
             if (!addUser.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = addUser.Errors });
 
+            // TODO: Fix "role doesn't exists"
             var assignRole = await _userManager.AddToRoleAsync(user, "HubAdmin");
             if (!assignRole.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "Role assign failed!" });
