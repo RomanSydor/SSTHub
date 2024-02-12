@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SSTHub.Identity.Data;
+using SSTHub.Identity.Models.Entities;
 
 namespace SSTHub.Identity.ServiceConfiguration
 {
@@ -8,7 +9,7 @@ namespace SSTHub.Identity.ServiceConfiguration
         public static void AddIdentity(this IServiceCollection services)
         {
             services
-                .AddDefaultIdentity<IdentityUser<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddIdentity<EmployeeUser, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<SSTHubIdentityDbContext>()
                 .AddDefaultTokenProviders();
 

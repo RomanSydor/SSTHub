@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SSTHub.Identity.Data;
 
@@ -11,9 +12,11 @@ using SSTHub.Identity.Data;
 namespace SSTHub.Identity.Data.Migrations
 {
     [DbContext(typeof(SSTHubIdentityDbContext))]
-    partial class SSTHubIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240212172659_makePositionOptional")]
+    partial class makePositionOptional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SSTHub.Identity.Models;
+using SSTHub.Identity.Models.Entities;
 
 namespace SSTHub.Identity.Data
 {
@@ -22,6 +22,10 @@ namespace SSTHub.Identity.Data
                 .WithOne(e => e.Position)
                 .HasForeignKey(e => e.PositionId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<EmployeeUser>()
+                .Property(e => e.PositionId)
+                .IsRequired(false);
 
             builder.Entity<IdentityRole<int>>()
                 .HasData(
