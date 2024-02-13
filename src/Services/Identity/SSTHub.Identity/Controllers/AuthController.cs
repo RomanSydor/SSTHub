@@ -16,12 +16,6 @@ namespace SSTHub.Identity.Controllers.API
             _userManager = userManager;
         }
 
-        [HttpGet]
-        public IActionResult Test()
-        {
-            return Ok("It works!!!");
-        }
-
         [HttpPost]
         [Route("RegisterAdmin")]
         public async Task<IActionResult> RegisterAdmin(HubAdminRegisterViewModel model)
@@ -42,8 +36,7 @@ namespace SSTHub.Identity.Controllers.API
             if (!addUser.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = addUser.Errors });
 
-            // TODO: Fix "role doesn't exists"
-            var assignRole = await _userManager.AddToRoleAsync(user, "HubAdmin");
+            var assignRole = await _userManager.AddToRoleAsync(user, "HUBADMIN");
             if (!assignRole.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "Role assign failed!" });
 
