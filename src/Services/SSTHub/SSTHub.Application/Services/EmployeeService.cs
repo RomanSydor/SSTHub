@@ -66,6 +66,16 @@ namespace SSTHub.Application.Services
             return false;
         }
 
+        public Task<int> CreateAsync(EmployeeCreateViewModel createViewModel)
+        {
+            var employee = _mapper.Map<Employee>(createViewModel);
+            employee.IsActive = true;
+            employee.CreatedAt = DateTime.UtcNow;
+
+            var employeeId = _employeeRepository.CreateAsync(employee);
+            return employeeId;
+        }
+
         public async Task<bool> UpdateAsync(int id, EmployeeEditItemViewModel employeeEditItemViewModel)
         {
             var employee = await _sSTHubDbContext
@@ -78,7 +88,6 @@ namespace SSTHub.Application.Services
                 employee.FirstName = employeeEditItemViewModel.FirstName;
                 employee.LastName = employeeEditItemViewModel.LastName;
                 employee.Phone = employeeEditItemViewModel.Phone;
-                employee.Position = employeeEditItemViewModel.Position;
 
                 return await _employeeRepository.UpdateAsync(employee);
             }

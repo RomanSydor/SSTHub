@@ -8,6 +8,7 @@ namespace SSTHub.API.ServiceConfigurations
         public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IHubService, HubService>();
         }
     }
 }

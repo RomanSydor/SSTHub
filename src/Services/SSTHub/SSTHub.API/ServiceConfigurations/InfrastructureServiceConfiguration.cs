@@ -17,6 +17,7 @@ namespace SSTHub.API.ServiceConfigurations
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IHubRepository, HubRepository>();
         }
 
         public static void AddMapper(this IServiceCollection services, IConfiguration configuration)
@@ -24,6 +25,7 @@ namespace SSTHub.API.ServiceConfigurations
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new EmployeeProfile());
+                mc.AddProfile(new HubProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

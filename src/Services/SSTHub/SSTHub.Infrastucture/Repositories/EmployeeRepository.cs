@@ -13,6 +13,13 @@ namespace SSTHub.Infrastucture.Repositories
             _sSTHubDbContext = sSTHubDbContext;
         }
 
+        public async Task<int> CreateAsync(Employee employee)
+        {
+            await _sSTHubDbContext.AddAsync(employee);
+            await _sSTHubDbContext.SaveChangesAsync();
+            return employee.Id;
+        }
+
         public async Task<bool> UpdateAsync(Employee employee)
         {
             _sSTHubDbContext.Update(employee);

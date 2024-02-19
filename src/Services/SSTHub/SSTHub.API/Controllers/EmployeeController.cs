@@ -40,6 +40,23 @@ namespace SSTHub.API.Controllers
             return Ok(employee);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] EmployeeCreateViewModel createViewModel)
+        {
+            int employeeId;
+
+            try
+            {
+                employeeId = await _employeeService.CreateAsync(createViewModel);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Something went wrong. " + e.Message });
+            }
+
+            return Ok(employeeId);
+        }
+
         [HttpPatch("{id}")]
         public async Task<IActionResult> Edit([FromRoute]int id, [FromBody] EmployeeEditItemViewModel employeeEditItemViewModel)
         {

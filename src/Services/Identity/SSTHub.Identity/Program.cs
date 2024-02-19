@@ -11,6 +11,8 @@ builder.Services.AddCorsConfig();
 builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddIdentity();
 builder.Services.AddJwtToken(builder.Configuration);
+builder.Services.AddHttpClients();
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 app.UseSwagger();

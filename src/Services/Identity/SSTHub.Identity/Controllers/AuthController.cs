@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Models.Entities;
 using SSTHub.Identity.Models.ViewModels;
+using SSTHub.Identity.Services.Interfaces;
 
 namespace SSTHub.Identity.Controllers.API
 {
@@ -10,10 +12,16 @@ namespace SSTHub.Identity.Controllers.API
     public class AuthController : ControllerBase
     {
         private readonly UserManager<EmployeeUser> _userManager;
+        private readonly IHubService _hubService;
+        private readonly IEmployeeService _employeeService;
 
-        public AuthController(UserManager<EmployeeUser> userManager)
+        public AuthController(UserManager<EmployeeUser> userManager,
+            IHubService hubService,
+            IEmployeeService employeeService)
         {
             _userManager = userManager;
+            _hubService = hubService;
+            _employeeService = employeeService;
         }
 
         [HttpPost]
@@ -40,8 +48,35 @@ namespace SSTHub.Identity.Controllers.API
             if (!assignRole.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "Role assign failed!" });
 
-            // TODO: Add call of SSTHub API to add User to Employees table
-            // TODO: Add call of SSTHub API to add Hub to Hubs table
+            int hubId;
+
+            try
+            {
+                hubId = await _hubService.CreateAsync(new HubCreateDto
+                {
+                    Name = model.HubName,
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", e.Message });
+            }
+
+            try
+            {
+                await _employeeService.CreateAsync(new EmployeeCreateDto
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    HubId = hubId,
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", e.Message });
+            }
 
             return Ok(new { Status = "Success", Message = "User created successfully!" });
         }

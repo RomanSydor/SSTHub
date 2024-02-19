@@ -2,7 +2,7 @@
 {
     public enum Roles : byte
     {
-        HubAdmin = 1,
-        Employee = 2,
+        HubAdmin = 0,
+        Employee = 1,
     }
 }
