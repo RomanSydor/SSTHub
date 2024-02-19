@@ -52,10 +52,12 @@ namespace SSTHub.Identity.Controllers.API
 
             try
             {
-                hubId = await _hubService.CreateAsync(new HubCreateDto
+                var hub = new HubCreateDto
                 {
                     Name = model.HubName,
-                });
+                };
+
+                hubId = await _hubService.CreateAsync(hub);
             }
             catch (Exception e)
             {
@@ -64,14 +66,16 @@ namespace SSTHub.Identity.Controllers.API
 
             try
             {
-                await _employeeService.CreateAsync(new EmployeeCreateDto
+                var employee = new EmployeeCreateDto
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
                     Phone = model.Phone,
                     HubId = hubId,
-                });
+                };
+
+                await _employeeService.CreateAsync(employee);
             }
             catch (Exception e)
             {
