@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
-using SSTHub.Domain.Enums;
 using SSTHub.Infrastucture.EntityConfigurations;
 
 namespace SSTHub.Infrastucture.Contexts

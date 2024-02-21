@@ -9,6 +9,5 @@ namespace SSTHub.Domain.ViewModels.Employee
         public string LastName { get; set; }
         [Phone]
         public string Phone { get; set; }
-        public EmployeePositions Position { get; set; }
     }
 }

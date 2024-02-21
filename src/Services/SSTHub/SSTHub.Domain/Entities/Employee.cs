@@ -12,7 +12,7 @@ namespace SSTHub.Domain.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public EmployeePositions Position { get; set; }
+        public Roles Role { get; set; }
         public int HubId { get; set; }
 
         public Hub Hub { get; set; }

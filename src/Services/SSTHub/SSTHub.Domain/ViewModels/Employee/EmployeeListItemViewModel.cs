@@ -8,6 +8,5 @@ namespace SSTHub.Domain.ViewModels.Employee
         public DateTime CreatedAt { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public EmployeePositions Position { get; set; }
     }
 }

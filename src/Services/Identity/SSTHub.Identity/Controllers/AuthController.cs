@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Models.Entities;
+using SSTHub.Identity.Models.Enums;
 using SSTHub.Identity.Models.ViewModels;
 using SSTHub.Identity.Services.Interfaces;
 
@@ -72,6 +73,7 @@ namespace SSTHub.Identity.Controllers.API
                     LastName = model.LastName,
                     Email = model.Email,
                     Phone = model.Phone,
+                    Role = Roles.HubAdmin,
                     HubId = hubId,
                 };
 

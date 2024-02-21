@@ -59,7 +59,7 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     LastName = "Watson",
                     Email = "testDW@test.com",
                     Phone = "1231231231",
-                    Position = EmployeePositions.Administrator,
+                    Role = Roles.HubAdmin,
                     HubId = 1,
                 },
                 new Employee
@@ -71,7 +71,7 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     LastName = "Abc",
                     Email = "testPA@test.com",
                     Phone = "43434343433",
-                    Position = EmployeePositions.Barber,
+                    Role = Roles.Employee,
                     HubId = 2,
                 }
             );

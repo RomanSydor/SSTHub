@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SSTHub.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace SSTHub.Domain.ViewModels.Employee
 {
@@ -14,6 +15,8 @@ namespace SSTHub.Domain.ViewModels.Employee
         [Required]
         [Phone]
         public string Phone { get; set; }
+        [Required]
+        public Roles Role { get; set; }
         [Required]
         public int HubId { get; set; }
     }

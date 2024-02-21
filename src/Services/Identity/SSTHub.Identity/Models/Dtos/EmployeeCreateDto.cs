@@ -16,6 +16,8 @@ namespace SSTHub.Identity.Models.Dtos
         [Phone]
         public string Phone { get; set; }
         [Required]
+        public Roles Role { get; set; }
+        [Required]
         public int HubId { get; set; }
     }
 }
