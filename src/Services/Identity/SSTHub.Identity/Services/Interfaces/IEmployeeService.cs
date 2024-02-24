@@ -4,6 +4,6 @@ namespace SSTHub.Identity.Services.Interfaces
 {
     public interface IEmployeeService
     {
-        Task<int> CreateAsync(EmployeeCreateDto createDto);
+        Task CreateAsync(EmployeeCreateDto createDto);
     }
 }

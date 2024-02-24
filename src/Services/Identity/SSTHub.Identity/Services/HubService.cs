@@ -34,19 +34,8 @@ namespace SSTHub.Identity.Services
             var response = await _httpClient.PostAsync(uri, jsonContent);
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            try
-            {
-                var hubId = int.Parse(jsonResponse);
-                return hubId;
-            }
-            catch (FormatException)
-            {
-                throw new FormatException($"Could not parse {jsonResponse}");
-            }
-            catch (Exception)
-            {
-                throw new Exception($"{jsonResponse}");
-            }
+            var hubId = int.Parse(jsonResponse);
+            return hubId;
         }
     }
 }

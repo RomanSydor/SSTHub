@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SSTHub.Identity.Models.Dtos;
-using SSTHub.Identity.Models.Entities;
 using SSTHub.Identity.Models.Enums;
 using SSTHub.Identity.Models.ViewModels;
 using SSTHub.Identity.Services.Interfaces;
@@ -12,62 +10,42 @@ namespace SSTHub.Identity.Controllers.API
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<EmployeeUser> _userManager;
         private readonly IHubService _hubService;
         private readonly IEmployeeService _employeeService;
+        private readonly IAuthService _authService;
 
-        public AuthController(UserManager<EmployeeUser> userManager,
-            IHubService hubService,
-            IEmployeeService employeeService)
+        public AuthController(IHubService hubService,
+            IEmployeeService employeeService,
+            IAuthService authService)
         {
-            _userManager = userManager;
             _hubService = hubService;
             _employeeService = employeeService;
+            _authService = authService;
         }
 
         [HttpPost]
         [Route("RegisterAdmin")]
         public async Task<IActionResult> RegisterAdmin(HubAdminRegisterViewModel model)
         {
-            var userExists = await _userManager.FindByEmailAsync(model.Email);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "User already exists!" });
-
-            var user = new EmployeeUser
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                UserName = model.Email,
-            };
-
-            var addUser = await _userManager.CreateAsync(user, model.Password);
-            if (!addUser.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = addUser.Errors });
-
-            var assignRole = await _userManager.AddToRoleAsync(user, "HUBADMIN");
-            if (!assignRole.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "Role assign failed!" });
-
-            int hubId;
-
             try
             {
-                var hub = new HubCreateDto
+                var userCreate = await _authService.RegisterAdminAsync(new RegisterAdminDto
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Password = model.Password,
+                });
+
+                if (!userCreate.Succeeded)
+                    return StatusCode(StatusCodes.Status400BadRequest, userCreate.ErrorMessage);
+
+                var hubId = await _hubService.CreateAsync(new HubCreateDto
                 {
                     Name = model.HubName,
-                };
+                });
 
-                hubId = await _hubService.CreateAsync(hub);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", e.Message });
-            }
-
-            try
-            {
-                var employee = new EmployeeCreateDto
+                await _employeeService.CreateAsync(new EmployeeCreateDto
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -75,16 +53,14 @@ namespace SSTHub.Identity.Controllers.API
                     Phone = model.Phone,
                     Role = Roles.HubAdmin,
                     HubId = hubId,
-                };
-
-                await _employeeService.CreateAsync(employee);
+                });
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", e.Message });
-            }
-
-            return Ok(new { Status = "Success", Message = "User created successfully!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }   
+            
+            return StatusCode(StatusCodes.Status200OK);
         }
     }
 }

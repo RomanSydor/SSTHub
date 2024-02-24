@@ -21,9 +21,9 @@ namespace SSTHub.Identity.Services
             _employeeBaseUrl = $"{_settings.Value.EmployeeUrl}";
         }
 
-        public async Task<int> CreateAsync(EmployeeCreateDto createDto)
+        public async Task CreateAsync(EmployeeCreateDto createDto)
         {
-            var uri = API.Hub.CreateHub(_employeeBaseUrl);
+            var uri = API.Employee.CreateEmployee(_employeeBaseUrl);
 
             using StringContent jsonContent = new(
                 JsonSerializer.Serialize(createDto),
@@ -31,22 +31,7 @@ namespace SSTHub.Identity.Services
                 "application/json"
             );
 
-            var response = await _httpClient.PostAsync(uri, jsonContent);
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            try
-            {
-                var employeeId = int.Parse(jsonResponse);
-                return employeeId;
-            }
-            catch (FormatException)
-            {
-                throw new FormatException($"Could not parse {jsonResponse}");
-            }
-            catch (Exception)
-            {
-                throw new Exception($"{jsonResponse}");
-            }
+            await _httpClient.PostAsync(uri, jsonContent);
         }
     }
 }
