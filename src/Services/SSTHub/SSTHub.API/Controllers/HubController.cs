@@ -18,18 +18,15 @@ namespace SSTHub.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] HubCreateViewModel createViewModel)
         {
-            int hubId;
-
             try
             {
-                hubId = await _hubService.CreateAsync(createViewModel);
+                var hubId = await _hubService.CreateAsync(createViewModel);
+                return StatusCode(StatusCodes.Status200OK, hubId);
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Something went wrong. " + e.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
-            return Ok(hubId);
         }
     }
 }

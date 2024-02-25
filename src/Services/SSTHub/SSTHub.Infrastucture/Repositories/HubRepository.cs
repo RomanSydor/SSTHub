@@ -15,7 +15,6 @@ namespace SSTHub.Infrastucture.Repositories
         public async Task<int> CreateAsync(Hub hub)
         {
             await _sSTHubDbContext.AddAsync(hub);
-            await _sSTHubDbContext.SaveChangesAsync();
             return hub.Id;
         }
     }

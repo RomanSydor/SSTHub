@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
+using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Domain.ViewModels.Employee;
 using SSTHub.Infrastucture.Contexts;
 
@@ -11,15 +12,15 @@ namespace SSTHub.Application.Services
     {
         private readonly SSTHubDbContext _sSTHubDbContext;
         private readonly IMapper _mapper;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
              
         public EmployeeService(SSTHubDbContext sSTHubDbContext,
             IMapper mapper,
-            IEmployeeRepository employeeRepository)
+            IUnitOfWork unitOfWork)
         {
             _sSTHubDbContext = sSTHubDbContext;
             _mapper = mapper;
-            _employeeRepository = employeeRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<EmployeeListItemViewModel>> GetAsync(int amount, int page)
@@ -43,7 +44,7 @@ namespace SSTHub.Application.Services
             return _mapper.Map<EmployeeDetailsViewModel>(employee);
         }
 
-        public async Task<bool> ChangeActiveStatusAsync(int id)
+        public async Task ChangeActiveStatusAsync(int id)
         {
             var employee = await _sSTHubDbContext
                 .Employees
@@ -60,23 +61,25 @@ namespace SSTHub.Application.Services
                 {
                     employee.IsActive = true;
                 }
-                return await _employeeRepository.UpdateAsync(employee);
-            }
 
-            return false;
+                _unitOfWork.EmployeeRepository.Update(employee);
+                await _unitOfWork.SaveChangesAsync();
+            }
         }
 
-        public Task<int> CreateAsync(EmployeeCreateViewModel createViewModel)
+        public async Task<int> CreateAsync(EmployeeCreateViewModel createViewModel)
         {
             var employee = _mapper.Map<Employee>(createViewModel);
             employee.IsActive = true;
             employee.CreatedAt = DateTime.UtcNow;
 
-            var employeeId = _employeeRepository.CreateAsync(employee);
+            var employeeId = await _unitOfWork.EmployeeRepository.CreateAsync(employee);
+            await _unitOfWork.SaveChangesAsync();
+
             return employeeId;
         }
 
-        public async Task<bool> UpdateAsync(int id, EmployeeEditItemViewModel employeeEditItemViewModel)
+        public async Task UpdateAsync(int id, EmployeeEditItemViewModel employeeEditItemViewModel)
         {
             var employee = await _sSTHubDbContext
                 .Employees
@@ -89,10 +92,9 @@ namespace SSTHub.Application.Services
                 employee.LastName = employeeEditItemViewModel.LastName;
                 employee.Phone = employeeEditItemViewModel.Phone;
 
-                return await _employeeRepository.UpdateAsync(employee);
+                _unitOfWork.EmployeeRepository.Update(employee);
+                await _unitOfWork.SaveChangesAsync();
             }
-
-            return false;
         }
     }
 }

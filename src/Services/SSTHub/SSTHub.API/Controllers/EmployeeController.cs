@@ -21,8 +21,16 @@ namespace SSTHub.API.Controllers
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAll([FromQuery] int amount = 20, [FromQuery] int page = 0)
         {
-            var employees = await _employeeService.GetAsync(amount, page);
-            return Ok(employees);
+            try
+            {
+                var employees = await _employeeService.GetAsync(amount, page);
+                return StatusCode(StatusCodes.Status200OK, employees);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+
         }
 
         [HttpGet("{id}")]
@@ -32,73 +40,52 @@ namespace SSTHub.API.Controllers
         {
             var employee = await _employeeService.GetByIdAsync(id);
 
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(employee);
+            if (employee != null)
+                return StatusCode(StatusCodes.Status200OK, employee);
+                
+            return StatusCode(StatusCodes.Status404NotFound);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] EmployeeCreateViewModel createViewModel)
         {
-            int employeeId;
-
             try
             {
-                employeeId = await _employeeService.CreateAsync(createViewModel);
+                var employeeId = await _employeeService.CreateAsync(createViewModel);
+                return StatusCode(StatusCodes.Status200OK, employeeId);
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Something went wrong. " + e.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
-            return Ok(employeeId);
         }
 
         [HttpPatch("{id}")]
         public async Task<IActionResult> Edit([FromRoute]int id, [FromBody] EmployeeEditItemViewModel employeeEditItemViewModel)
         {
-            bool result;
-
             try
             {
-                result = await _employeeService.UpdateAsync(id, employeeEditItemViewModel);
+                await _employeeService.UpdateAsync(id, employeeEditItemViewModel);
+                return StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Something went wrong. " + e.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
-            if (!result)
-            {
-                return BadRequest(new { Message = "Something went wrong." });
-            }
-
-            return Ok(new { Message = "Updated" });
         }
 
         [HttpPatch("{id}/ActiveStatus")]
         public async Task<IActionResult> ChangeActiveStatus([FromRoute] int id)
         {
-            bool result;
-
             try
             {
-                result = await _employeeService.ChangeActiveStatusAsync(id);
+                await _employeeService.ChangeActiveStatusAsync(id);
+                return StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Something went wrong. " + e.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
-            if (!result)
-            {
-                return BadRequest(new { Message = "Something went wrong." });
-            }
-
-            return Ok(new { Message = "Updated" });
         }
     }
 }

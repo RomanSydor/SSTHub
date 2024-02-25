@@ -3,7 +3,6 @@ using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Models.Entities;
 using SSTHub.Identity.Services.Interfaces;
 using SSTHub.Identity.Services.ResponseDtos.Auth;
-using System.Linq;
 
 namespace SSTHub.Identity.Services
 {
@@ -20,7 +19,7 @@ namespace SSTHub.Identity.Services
         {
             var userExists = await _userManager.FindByEmailAsync(dto.Email);
             if (userExists != null)
-                return new RegisterAdminResponseDto { Succeeded = false, ErrorMessage = "User already exists." };
+                return new RegisterAdminResponseDto { Succeeded = false, ErrorMessage = "User already exists" };
 
             var user = new EmployeeUser
             {
@@ -47,7 +46,7 @@ namespace SSTHub.Identity.Services
                 return new RegisterAdminResponseDto { Succeeded = false, ErrorMessage = errors };
             }
 
-            return new RegisterAdminResponseDto { Succeeded = true, ErrorMessage = "Created." };
+            return new RegisterAdminResponseDto { Succeeded = true, ErrorMessage = "Created" };
         }
     }
 }

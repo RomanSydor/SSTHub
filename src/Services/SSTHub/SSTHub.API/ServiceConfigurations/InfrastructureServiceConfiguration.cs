@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SSTHub.Domain.Interfaces;
+using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Infrastucture.Contexts;
 using SSTHub.Infrastucture.MappingProfiles;
-using SSTHub.Infrastucture.Repositories;
+using SSTHub.Infrastucture.Repositories.UnitOfWork;
 
 namespace SSTHub.API.ServiceConfigurations
 {
@@ -16,8 +16,7 @@ namespace SSTHub.API.ServiceConfigurations
 
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IHubRepository, HubRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public static void AddMapper(this IServiceCollection services, IConfiguration configuration)
