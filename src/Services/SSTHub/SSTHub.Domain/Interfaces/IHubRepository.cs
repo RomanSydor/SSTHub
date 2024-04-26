@@ -4,6 +4,6 @@ namespace SSTHub.Domain.Interfaces
 {
     public interface IHubRepository
     {
-        Task<int> CreateAsync(Hub hub);
+        Task CreateAsync(Hub hub);
     }
 }

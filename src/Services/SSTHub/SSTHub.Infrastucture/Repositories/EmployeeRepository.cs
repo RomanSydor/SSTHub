@@ -13,10 +13,9 @@ namespace SSTHub.Infrastucture.Repositories
             _sSTHubDbContext = sSTHubDbContext;
         }
 
-        public async Task<int> CreateAsync(Employee employee)
+        public async Task CreateAsync(Employee employee)
         {
             await _sSTHubDbContext.AddAsync(employee);
-            return employee.Id;
         }
 
         public void Update(Employee employee)

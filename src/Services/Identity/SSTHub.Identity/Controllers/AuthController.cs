@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Mvc;
+using SSTHub.Common.RabbitMQContracts;
 using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Models.Enums;
 using SSTHub.Identity.Models.ViewModels;
@@ -13,14 +15,17 @@ namespace SSTHub.Identity.Controllers.API
         private readonly IHubService _hubService;
         private readonly IEmployeeService _employeeService;
         private readonly IAuthService _authService;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public AuthController(IHubService hubService,
             IEmployeeService employeeService,
-            IAuthService authService)
+            IAuthService authService,
+            IPublishEndpoint publishEndpoint)
         {
             _hubService = hubService;
             _employeeService = employeeService;
             _authService = authService;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpPost]
@@ -54,13 +59,20 @@ namespace SSTHub.Identity.Controllers.API
                     Role = Roles.HubAdmin,
                     HubId = hubId,
                 });
+
+                await _publishEndpoint.Publish<IEmailMessage>(new
+                {
+                    Receiver = model.Email,
+                    Subject = "Account created",
+                    Body = ""
+                });
+
+                return StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }   
-            
-            return StatusCode(StatusCodes.Status200OK);
         }
     }
 }

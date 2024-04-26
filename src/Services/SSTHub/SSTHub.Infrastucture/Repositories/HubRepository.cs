@@ -12,10 +12,9 @@ namespace SSTHub.Infrastucture.Repositories
         {
             _sSTHubDbContext = sSTHubDbContext;
         }
-        public async Task<int> CreateAsync(Hub hub)
+        public async Task CreateAsync(Hub hub)
         {
             await _sSTHubDbContext.AddAsync(hub);
-            return hub.Id;
         }
     }
 }

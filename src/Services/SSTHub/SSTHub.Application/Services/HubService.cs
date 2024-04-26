@@ -24,10 +24,10 @@ namespace SSTHub.Application.Services
             hub.IsActive = true;
             hub.CreatedAt = DateTime.UtcNow;
 
-            var hubId = await _unitOfWork.HubRepository.CreateAsync(hub);
+            await _unitOfWork.HubRepository.CreateAsync(hub);
             await _unitOfWork.SaveChangesAsync();
 
-            return hubId;
+            return hub.Id;
         }
     }
 }

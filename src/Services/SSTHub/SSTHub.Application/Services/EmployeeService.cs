@@ -73,10 +73,10 @@ namespace SSTHub.Application.Services
             employee.IsActive = true;
             employee.CreatedAt = DateTime.UtcNow;
 
-            var employeeId = await _unitOfWork.EmployeeRepository.CreateAsync(employee);
+            await _unitOfWork.EmployeeRepository.CreateAsync(employee);
             await _unitOfWork.SaveChangesAsync();
 
-            return employeeId;
+            return employee.Id;
         }
 
         public async Task UpdateAsync(int id, EmployeeEditItemViewModel employeeEditItemViewModel)

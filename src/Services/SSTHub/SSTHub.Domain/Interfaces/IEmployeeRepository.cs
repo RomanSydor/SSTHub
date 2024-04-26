@@ -4,7 +4,7 @@ namespace SSTHub.Domain.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task<int> CreateAsync(Employee employee);
+        Task CreateAsync(Employee employee);
         void Update(Employee employee);
     }
 }
