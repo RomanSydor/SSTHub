@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Models.Entities;
+using SSTHub.Identity.Models.Enums;
 using SSTHub.Identity.Services.Interfaces;
 using SSTHub.Identity.Services.ResponseDtos.Auth;
 
@@ -15,11 +16,11 @@ namespace SSTHub.Identity.Services
             _userManager = userManager;
         }
 
-        public async Task<RegisterAdminResponseDto> RegisterAdminAsync(RegisterAdminDto dto)
+        public async Task<UserRegisterResponseDto> UserCreateAsync(UserCreateDto dto)
         {
             var userExists = await _userManager.FindByEmailAsync(dto.Email);
             if (userExists != null)
-                return new RegisterAdminResponseDto { Succeeded = false, ErrorMessage = "User already exists" };
+                return new UserRegisterResponseDto { Succeeded = false, ErrorMessage = "User already exists" };
 
             var user = new EmployeeUser
             {
@@ -27,6 +28,7 @@ namespace SSTHub.Identity.Services
                 LastName = dto.LastName,
                 Email = dto.Email,
                 UserName = dto.Email,
+                PhoneNumber = dto.Phone,
             };
 
             var addUser = await _userManager.CreateAsync(user, dto.Password);
@@ -35,18 +37,27 @@ namespace SSTHub.Identity.Services
             {
                 var errorList = addUser.Errors.ToList();
                 var errors = string.Join(", ", errorList.Select(e => e.Description));
-                return new RegisterAdminResponseDto { Succeeded = false, ErrorMessage = errors };
+                return new UserRegisterResponseDto { Succeeded = false, ErrorMessage = errors };
             }
 
-            var assignRole = await _userManager.AddToRoleAsync(user, "HUBADMIN");
+            IdentityResult assignRole;
+            if (dto.Role == Roles.HubAdmin)
+            {
+                assignRole = await _userManager.AddToRoleAsync(user, "HUBADMIN");
+            }
+            else
+            {
+                assignRole = await _userManager.AddToRoleAsync(user, "EMPLOYEE");
+            }
+
             if (!assignRole.Succeeded)
             {
                 var errorList = assignRole.Errors.ToList();
                 var errors = string.Join(", ", errorList.Select(e => e.Description));
-                return new RegisterAdminResponseDto { Succeeded = false, ErrorMessage = errors };
+                return new UserRegisterResponseDto { Succeeded = false, ErrorMessage = errors };
             }
 
-            return new RegisterAdminResponseDto { Succeeded = true, ErrorMessage = "Created" };
+            return new UserRegisterResponseDto { Succeeded = true, ErrorMessage = "Created" };
         }
     }
 }

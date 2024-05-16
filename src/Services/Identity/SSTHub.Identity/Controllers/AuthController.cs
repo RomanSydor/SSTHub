@@ -34,12 +34,13 @@ namespace SSTHub.Identity.Controllers.API
         {
             try
             {
-                var userCreate = await _authService.RegisterAdminAsync(new RegisterAdminDto
+                var userCreate = await _authService.UserCreateAsync(new UserCreateDto
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
                     Password = model.Password,
+                    Role = Roles.HubAdmin,
                 });
 
                 if (!userCreate.Succeeded)
@@ -60,10 +61,11 @@ namespace SSTHub.Identity.Controllers.API
                     HubId = hubId,
                 });
 
+                //TODO: add confirm email functionality   
                 await _publishEndpoint.Publish<IEmailMessage>(new
                 {
                     Receiver = model.Email,
-                    Subject = "Account created",
+                    Subject = "Account created, confirm email",
                     Body = ""
                 });
 
@@ -73,6 +75,50 @@ namespace SSTHub.Identity.Controllers.API
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }   
+        }
+
+        [HttpPost]
+        [Route("RegisterEmployee")]
+        public async Task<IActionResult> RegisterEmployee(EmployeeRegisterViewModel model)
+        {
+            try
+            {
+                var userCreate = await _authService.UserCreateAsync(new UserCreateDto
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Password = model.Password,
+                    Role = Roles.Employee,
+                });
+
+                if (!userCreate.Succeeded)
+                    return StatusCode(StatusCodes.Status400BadRequest, userCreate.ErrorMessage);
+
+                await _employeeService.CreateAsync(new EmployeeCreateDto
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    Role = Roles.Employee,
+                    HubId = model.HubId,
+                });
+
+                //TODO: add confirm email functionality   
+                await _publishEndpoint.Publish<IEmailMessage>(new
+                {
+                    Receiver = model.Email,
+                    Subject = "Account created, confirm email",
+                    Body = ""
+                });
+
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
     }
 }

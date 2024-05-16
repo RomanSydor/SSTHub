@@ -5,6 +5,6 @@ namespace SSTHub.Identity.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<RegisterAdminResponseDto> RegisterAdminAsync(RegisterAdminDto dto);
+        Task<UserRegisterResponseDto> UserCreateAsync(UserCreateDto dto);
     }
 }
