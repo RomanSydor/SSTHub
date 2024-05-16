@@ -3,8 +3,8 @@
     public enum EventStatuses : byte
     {
         Created = 0,
-        Finished = 1,
-        Canceled = 2,
-        Expired = 3,
+        Confirmed = 1,
+        Finished = 2,
+        Canceled = 3,
     }
 }
