@@ -16,14 +16,14 @@ namespace SSTHub.API.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet]
+        [HttpGet("{hubId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetAll([FromQuery] int amount = 20, [FromQuery] int page = 0)
+        public async Task<IActionResult> Get([FromRoute] int hubId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
         {
             try
             {
-                var employees = await _employeeService.GetAsync(amount, page);
+                var employees = await _employeeService.GetByHubIdAsync(hubId, amount, page);
                 return StatusCode(StatusCodes.Status200OK, employees);
             }
             catch (Exception e)
@@ -38,12 +38,19 @@ namespace SSTHub.API.Controllers
         [ProducesResponseType(typeof(EmployeeDetailsViewModel), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
-            var employee = await _employeeService.GetByIdAsync(id);
+            try
+            {
+                var employee = await _employeeService.GetByIdAsync(id);
+                if (employee != null)
+                    return StatusCode(StatusCodes.Status200OK, employee);
 
-            if (employee != null)
-                return StatusCode(StatusCodes.Status200OK, employee);
-                
-            return StatusCode(StatusCodes.Status404NotFound);
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+
         }
 
         [HttpPost]

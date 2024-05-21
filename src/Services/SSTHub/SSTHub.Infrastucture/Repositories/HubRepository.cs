@@ -16,5 +16,10 @@ namespace SSTHub.Infrastucture.Repositories
         {
             await _sSTHubDbContext.AddAsync(hub);
         }
+
+        public void Update(Hub hub)
+        {
+            _sSTHubDbContext.Update(hub);
+        }
     }
 }

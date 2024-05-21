@@ -8,6 +8,8 @@ namespace SSTHub.Infrastucture.MappingProfiles
     {
         public HubProfile() 
         {
+            CreateMap<Hub, HubDetailsViewModel>();
+
             CreateMap<HubCreateViewModel, Hub>();
         }
     }

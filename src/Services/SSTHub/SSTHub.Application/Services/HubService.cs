@@ -1,19 +1,23 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Domain.ViewModels.Hub;
+using SSTHub.Infrastucture.Contexts;
 
 namespace SSTHub.Application.Services
 {
     public class HubService : IHubService
     {
+        private readonly SSTHubDbContext _sSTHubDbContext;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public HubService(IMapper mapper,
+        public HubService(SSTHubDbContext sSTHubDbContext, IMapper mapper,
             IUnitOfWork unitOfWork)
         {
+            _sSTHubDbContext = sSTHubDbContext;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -28,6 +32,55 @@ namespace SSTHub.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return hub.Id;
+        }
+
+        public async Task<HubDetailsViewModel> GetByIdAsync(int id)
+        {
+            var hub = await _sSTHubDbContext
+                            .Hubs
+                            .Where(e => e.Id == id)
+                            .SingleOrDefaultAsync();
+
+            return _mapper.Map<HubDetailsViewModel>(hub);
+        }
+
+        public async Task UpdateAsync(int id, HubEditItemViewModel editItemViewModel)
+        {
+            var hub = await _sSTHubDbContext
+                .Hubs
+                .Where(e => e.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (hub != null)
+            {
+                hub.Name = editItemViewModel.Name;
+
+                _unitOfWork.HubRepository.Update(hub);
+                await _unitOfWork.SaveChangesAsync();
+            }
+        }
+
+        public async Task ChangeActiveStatusAsync(int id)
+        {
+            var hub = await _sSTHubDbContext
+                .Hubs
+                .Where(e => e.Id == id)                      
+                .SingleOrDefaultAsync();
+
+            if (hub != null)
+            {
+                if (hub.IsActive)
+                {
+                    hub.IsActive = false;
+                }
+                else
+                {
+                    hub.IsActive = true;
+                }
+
+                _unitOfWork.HubRepository.Update(hub);
+                await _unitOfWork.SaveChangesAsync();
+            }
         }
     }
 }

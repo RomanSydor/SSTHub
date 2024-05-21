@@ -23,10 +23,11 @@ namespace SSTHub.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<EmployeeListItemViewModel>> GetAsync(int amount, int page)
+        public async Task<IEnumerable<EmployeeListItemViewModel>> GetByHubIdAsync(int hubId, int amount, int page)
         {
             var employees = await _sSTHubDbContext
                 .Employees
+                .Where(e => e.HubId == hubId)
                 .Skip(amount * page)
                 .Take(amount)
                 .ToListAsync();
@@ -79,7 +80,7 @@ namespace SSTHub.Application.Services
             return employee.Id;
         }
 
-        public async Task UpdateAsync(int id, EmployeeEditItemViewModel employeeEditItemViewModel)
+        public async Task UpdateAsync(int id, EmployeeEditItemViewModel editItemViewModel)
         {
             var employee = await _sSTHubDbContext
                 .Employees
@@ -88,9 +89,9 @@ namespace SSTHub.Application.Services
 
             if (employee != null)
             {
-                employee.FirstName = employeeEditItemViewModel.FirstName;
-                employee.LastName = employeeEditItemViewModel.LastName;
-                employee.Phone = employeeEditItemViewModel.Phone;
+                employee.FirstName = editItemViewModel.FirstName;
+                employee.LastName = editItemViewModel.LastName;
+                employee.Phone = editItemViewModel.Phone;
 
                 _unitOfWork.EmployeeRepository.Update(employee);
                 await _unitOfWork.SaveChangesAsync();
