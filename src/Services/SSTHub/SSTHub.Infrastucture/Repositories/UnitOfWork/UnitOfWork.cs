@@ -10,6 +10,7 @@ namespace SSTHub.Infrastucture.Repositories.UnitOfWork
 
         IEmployeeRepository _employeeRepository;
         IHubRepository _hubRepository;
+        IServiceRepository _serviceRepository;
 
         public UnitOfWork(SSTHubDbContext sSTHubDbContext)
         {
@@ -24,6 +25,11 @@ namespace SSTHub.Infrastucture.Repositories.UnitOfWork
         public IHubRepository HubRepository
         {
             get { return _hubRepository ??= new HubRepository(_sSTHubDbContext); }
+        }
+
+        public IServiceRepository ServiceRepository
+        {
+            get { return _serviceRepository ??= new ServiceRepository(_sSTHubDbContext); }
         }
 
         public async Task SaveChangesAsync()

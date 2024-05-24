@@ -38,7 +38,7 @@ namespace SSTHub.Application.Services
         {
             var hub = await _sSTHubDbContext
                             .Hubs
-                            .Where(e => e.Id == id)
+                            .Where(h => h.Id == id)
                             .SingleOrDefaultAsync();
 
             return _mapper.Map<HubDetailsViewModel>(hub);
@@ -48,7 +48,7 @@ namespace SSTHub.Application.Services
         {
             var hub = await _sSTHubDbContext
                 .Hubs
-                .Where(e => e.Id == id)
+                .Where(h => h.Id == id)
                 .SingleOrDefaultAsync();
 
             if (hub != null)
@@ -64,7 +64,7 @@ namespace SSTHub.Application.Services
         {
             var hub = await _sSTHubDbContext
                 .Hubs
-                .Where(e => e.Id == id)                      
+                .Where(h => h.Id == id)                      
                 .SingleOrDefaultAsync();
 
             if (hub != null)

@@ -68,11 +68,11 @@ namespace SSTHub.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Edit([FromRoute]int id, [FromBody] EmployeeEditItemViewModel employeeEditItemViewModel)
+        public async Task<IActionResult> Edit([FromRoute]int id, [FromBody] EmployeeEditItemViewModel editItemViewModel)
         {
             try
             {
-                await _employeeService.UpdateAsync(id, employeeEditItemViewModel);
+                await _employeeService.UpdateAsync(id, editItemViewModel);
                 return StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)

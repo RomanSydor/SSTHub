@@ -1,6 +1,4 @@
-﻿using SSTHub.Domain.Enums;
-
-namespace SSTHub.Domain.ViewModels.Employee
+﻿namespace SSTHub.Domain.ViewModels.Employee
 {
     public class EmployeeListItemViewModel
     {

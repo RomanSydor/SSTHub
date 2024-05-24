@@ -4,6 +4,7 @@
     {
         IEmployeeRepository EmployeeRepository { get; }
         IHubRepository HubRepository { get; }
+        IServiceRepository ServiceRepository { get; }
         Task SaveChangesAsync();
     }
 }

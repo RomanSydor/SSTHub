@@ -9,6 +9,7 @@ namespace SSTHub.API.ServiceConfigurations
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IHubService, HubService>();
+            services.AddScoped<IServiceService, ServiceService>();
         }
     }
 }

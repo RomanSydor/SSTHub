@@ -1,5 +1,4 @@
-﻿using SSTHub.Domain.Entities;
-using SSTHub.Domain.ViewModels.Employee;
+﻿using SSTHub.Domain.ViewModels.Employee;
 
 namespace SSTHub.Domain.Interfaces
 {
