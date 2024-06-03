@@ -12,6 +12,7 @@ namespace SSTHub.Infrastucture.Repositories.UnitOfWork
         IHubRepository _hubRepository;
         IServiceRepository _serviceRepository;
         IEventRepository _eventRepository;
+        ICustomerRepository _customerRepository;
 
         public UnitOfWork(SSTHubDbContext sSTHubDbContext)
         {
@@ -36,6 +37,11 @@ namespace SSTHub.Infrastucture.Repositories.UnitOfWork
         public IEventRepository EventRepository
         {
             get { return _eventRepository ??= new EventRepository(_sSTHubDbContext); }
+        }
+
+        public ICustomerRepository CustomerRepository
+        {
+            get { return _customerRepository ??= new CustomerRepository(_sSTHubDbContext); }
         }
 
         public async Task SaveChangesAsync()

@@ -11,6 +11,7 @@ namespace SSTHub.API.ServiceConfigurations
             services.AddScoped<IHubService, HubService>();
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<ICustomerService, CustomerService>();
         }
     }
 }

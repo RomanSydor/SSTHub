@@ -6,6 +6,7 @@
         IHubRepository HubRepository { get; }
         IServiceRepository ServiceRepository { get; }
         IEventRepository EventRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
         Task SaveChangesAsync();
     }
 }
