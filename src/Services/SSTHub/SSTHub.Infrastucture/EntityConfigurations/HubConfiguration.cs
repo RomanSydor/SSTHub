@@ -34,6 +34,7 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     IsActive = true,
                     CreatedAt = new DateTime(2023, 1, 14, 16, 0, 0),
                     Name = "TestHub1",
+                    OrganizationId = 1,
                 },
                 new Hub
                 {
@@ -41,6 +42,7 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     IsActive = true,
                     CreatedAt = new DateTime(2023, 2, 1, 11, 0, 0),
                     Name = "TestHub2",
+                    OrganizationId = 2,
                 }
             );
         }

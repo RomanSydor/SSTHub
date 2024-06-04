@@ -17,6 +17,7 @@ namespace SSTHub.Infrastucture.Contexts
         public DbSet<Event> Events { get; set; }
         public DbSet<Hub> Hubs { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Organization> Organizations {  get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
