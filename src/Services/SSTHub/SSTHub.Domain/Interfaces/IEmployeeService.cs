@@ -4,7 +4,7 @@ namespace SSTHub.Domain.Interfaces
 {
     public interface IEmployeeService
     {
-        Task<IEnumerable<EmployeeListItemViewModel>> GetByHubIdAsync(int hubId, int amount, int page);
+        Task<IEnumerable<EmployeeListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page);
         Task<EmployeeDetailsViewModel> GetByIdAsync(int id);
         Task<int> CreateAsync(EmployeeCreateViewModel createViewModel);
         Task UpdateAsync(int id, EmployeeEditItemViewModel editItemViewModel);

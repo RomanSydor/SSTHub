@@ -21,6 +21,12 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                 .HasForeignKey(h => h.OrganizationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder
+                .HasMany(o => o.Employees)
+                .WithOne(e => e.Organization)
+                .HasForeignKey(e => e.OrganizationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasData(
                 new Organization
                 {

@@ -16,12 +16,6 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                 .IsUnique();
 
             builder
-                .HasMany(h => h.Employees)
-                .WithOne(e => e.Hub)
-                .HasForeignKey(e => e.HubId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder
                 .HasMany(h => h.Events)
                 .WithOne(e => e.Hub)
                 .HasForeignKey(e => e.HubId)

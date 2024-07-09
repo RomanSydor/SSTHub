@@ -23,11 +23,11 @@ namespace SSTHub.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<EmployeeListItemViewModel>> GetByHubIdAsync(int hubId, int amount, int page)
+        public async Task<IEnumerable<EmployeeListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
         {
             var employees = await _sSTHubDbContext
                 .Employees
-                .Where(e => e.HubId == hubId)
+                .Where(e => e.OrganizationId == organizationId)
                 .Skip(amount * page)
                 .Take(amount)
                 .ToListAsync();

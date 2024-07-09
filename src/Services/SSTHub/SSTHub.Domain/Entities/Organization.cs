@@ -10,5 +10,6 @@ namespace SSTHub.Domain.Entities
         public string Name { get; set; }
 
         public ICollection<Hub> Hubs { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

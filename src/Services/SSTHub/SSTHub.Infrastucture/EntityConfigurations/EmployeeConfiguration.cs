@@ -60,7 +60,7 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     Email = "testDW@test.com",
                     Phone = "1231231231",
                     Role = Roles.HubAdmin,
-                    HubId = 1,
+                    OrganizationId = 1,
                 },
                 new Employee
                 {
@@ -72,7 +72,7 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     Email = "testPA@test.com",
                     Phone = "43434343433",
                     Role = Roles.Employee,
-                    HubId = 2,
+                    OrganizationId = 2,
                 }
             );
         }

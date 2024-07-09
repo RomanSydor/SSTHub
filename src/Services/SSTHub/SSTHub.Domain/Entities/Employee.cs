@@ -13,9 +13,9 @@ namespace SSTHub.Domain.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public Roles Role { get; set; }
-        public int HubId { get; set; }
+        public int OrganizationId { get; set; }
 
-        public Hub Hub { get; set; }
+        public Organization Organization { get; set; }
 
         public ICollection<Service> Services { get; set; }
         public ICollection<Event> Events { get; set; }

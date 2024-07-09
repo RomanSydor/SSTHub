@@ -8,11 +8,11 @@ namespace SSTHub.Infrastucture.Repositories.UnitOfWork
     {
         private readonly SSTHubDbContext _sSTHubDbContext;
 
-        IEmployeeRepository _employeeRepository;
-        IHubRepository _hubRepository;
-        IServiceRepository _serviceRepository;
-        IEventRepository _eventRepository;
-        ICustomerRepository _customerRepository;
+        IEmployeeRepository? _employeeRepository;
+        IHubRepository? _hubRepository;
+        IServiceRepository? _serviceRepository;
+        IEventRepository? _eventRepository;
+        ICustomerRepository? _customerRepository;
 
         public UnitOfWork(SSTHubDbContext sSTHubDbContext)
         {

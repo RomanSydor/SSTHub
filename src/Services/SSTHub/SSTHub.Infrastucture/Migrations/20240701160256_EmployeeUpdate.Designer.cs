@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SSTHub.Infrastucture.Contexts;
 
@@ -11,9 +12,11 @@ using SSTHub.Infrastucture.Contexts;
 namespace SSTHub.Infrastucture.Migrations
 {
     [DbContext(typeof(SSTHubDbContext))]
-    partial class SSTHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240701160256_EmployeeUpdate")]
+    partial class EmployeeUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,6 +133,9 @@ namespace SSTHub.Infrastucture.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("HubId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -153,6 +159,8 @@ namespace SSTHub.Infrastucture.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("HubId");
 
                     b.HasIndex("OrganizationId");
 
@@ -414,6 +422,10 @@ namespace SSTHub.Infrastucture.Migrations
 
             modelBuilder.Entity("SSTHub.Domain.Entities.Employee", b =>
                 {
+                    b.HasOne("SSTHub.Domain.Entities.Hub", null)
+                        .WithMany("Employees")
+                        .HasForeignKey("HubId");
+
                     b.HasOne("SSTHub.Domain.Entities.Organization", "Organization")
                         .WithMany("Employees")
                         .HasForeignKey("OrganizationId")
@@ -481,6 +493,8 @@ namespace SSTHub.Infrastucture.Migrations
 
             modelBuilder.Entity("SSTHub.Domain.Entities.Hub", b =>
                 {
+                    b.Navigation("Employees");
+
                     b.Navigation("Events");
                 });
 
