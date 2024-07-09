@@ -16,6 +16,42 @@ namespace SSTHub.API.Controllers
             _hubService = hubSerice;
         }
 
+        [HttpGet("ByOrganizationId/{organizationId}")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<HubListItemViewModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<HubListItemViewModel>), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetByOrganizationId([FromRoute] int organizationId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        {
+            try
+            {
+                var employees = await _hubService.GetByOrganizationIdAsync(organizationId, amount, page);
+                return StatusCode(StatusCodes.Status200OK, employees);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(HubListItemViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HubListItemViewModel), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            try
+            {
+                var hub = await _hubService.GetByIdAsync(id);
+
+                if (hub != null)
+                    return StatusCode(StatusCodes.Status200OK, hub);
+
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] HubCreateViewModel createViewModel)
         {
@@ -51,26 +87,6 @@ namespace SSTHub.API.Controllers
             {
                 await _hubService.ChangeActiveStatusAsync(id);
                 return StatusCode(StatusCodes.Status200OK);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
-        }
-
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(HubDetailsViewModel), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(HubDetailsViewModel), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Get([FromRoute] int id)
-        {
-            try
-            {
-                var hub = await _hubService.GetByIdAsync(id);
-
-                if (hub != null)
-                    return StatusCode(StatusCodes.Status200OK, hub);
-
-                return StatusCode(StatusCodes.Status404NotFound);
             }
             catch (Exception e)
             {

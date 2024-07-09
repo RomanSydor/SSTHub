@@ -16,6 +16,25 @@ namespace SSTHub.API.Controllers
             _organizationService = organizationService;
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(OrganizationDetailsViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OrganizationDetailsViewModel), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            try
+            {
+                var organization = await _organizationService.GetByIdAsync(id);
+
+                if (organization != null)
+                    return StatusCode(StatusCodes.Status200OK, organization);
+
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] OrganizationCreateViewModel createViewModel)
@@ -38,26 +57,6 @@ namespace SSTHub.API.Controllers
             {
                 await _organizationService.UpdateAsync(id, editItemViewModel);
                 return StatusCode(StatusCodes.Status200OK);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
-        }
-
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(OrganizationDetailsViewModel), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(OrganizationDetailsViewModel), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Get([FromRoute] int id)
-        {
-            try
-            {
-                var organization = await _organizationService.GetByIdAsync(id);
-
-                if (organization != null)
-                    return StatusCode(StatusCodes.Status200OK, organization);
-
-                return StatusCode(StatusCodes.Status404NotFound);
             }
             catch (Exception e)
             {

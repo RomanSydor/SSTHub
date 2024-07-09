@@ -16,7 +16,7 @@ namespace SSTHub.API.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet("{organizationId}")]
+        [HttpGet("ByOrganizationId/{organizationId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Get([FromRoute] int organizationId, [FromQuery] int amount = 20, [FromQuery] int page = 0)

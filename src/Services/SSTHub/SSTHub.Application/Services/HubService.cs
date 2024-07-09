@@ -34,14 +34,14 @@ namespace SSTHub.Application.Services
             return hub.Id;
         }
 
-        public async Task<HubDetailsViewModel> GetByIdAsync(int id)
+        public async Task<HubListItemViewModel> GetByIdAsync(int id)
         {
             var hub = await _sSTHubDbContext
                             .Hubs
                             .Where(h => h.Id == id)
                             .SingleOrDefaultAsync();
 
-            return _mapper.Map<HubDetailsViewModel>(hub);
+            return _mapper.Map<HubListItemViewModel>(hub);
         }
 
         public async Task UpdateAsync(int id, HubEditItemViewModel editItemViewModel)
@@ -81,6 +81,18 @@ namespace SSTHub.Application.Services
                 _unitOfWork.HubRepository.Update(hub);
                 await _unitOfWork.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        {
+            var hubs = await _sSTHubDbContext
+                .Hubs
+                .Where(h => h.OrganizationId == organizationId)
+                .Skip(amount * page)
+                .Take(amount)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<HubListItemViewModel>>(hubs);
         }
     }
 }

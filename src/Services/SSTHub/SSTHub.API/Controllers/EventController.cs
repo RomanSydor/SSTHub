@@ -16,7 +16,7 @@ namespace SSTHub.API.Controllers
             _eventService = eventService;
         }
 
-        [HttpGet("{hubId}")]
+        [HttpGet("ByHubId/{hubId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<EventListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<EventListItemViewModel>), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Get([FromRoute] int hubId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
