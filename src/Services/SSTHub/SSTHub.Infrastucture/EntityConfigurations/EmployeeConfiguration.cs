@@ -59,7 +59,7 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     LastName = "Watson",
                     Email = "testDW@test.com",
                     Phone = "1231231231",
-                    Role = Roles.HubAdmin,
+                    Role = Roles.OrganizationAdmin,
                     OrganizationId = 1,
                 },
                 new Employee
@@ -71,7 +71,55 @@ namespace SSTHub.Infrastucture.EntityConfigurations
                     LastName = "Abc",
                     Email = "testPA@test.com",
                     Phone = "43434343433",
-                    Role = Roles.Employee,
+                    Role = Roles.OrganizationAdmin,
+                    OrganizationId = 2,
+                },
+                new Employee
+                {
+                    Id = 3,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 12, 2, 15, 0, 0),
+                    FirstName = "Alex",
+                    LastName = "Test",
+                    Email = "testAT@test.com",
+                    Phone = "43433343433",
+                    Role = Roles.HubAdmin,
+                    OrganizationId = 1,
+                },
+                new Employee
+                {
+                    Id = 4,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 12, 2, 15, 0, 0),
+                    FirstName = "Rob",
+                    LastName = "Test",
+                    Email = "testRT@test.com",
+                    Phone = "43433343513",
+                    Role = Roles.HubAdmin,
+                    OrganizationId = 2,
+                },
+                new Employee
+                {
+                    Id = 5,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 12, 2, 15, 0, 0),
+                    FirstName = "Sam",
+                    LastName = "Test",
+                    Email = "testST@test.com",
+                    Phone = "43433343213",
+                    Role = Roles.Specialist,
+                    OrganizationId = 1,
+                },
+                new Employee
+                {
+                    Id = 6,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2023, 12, 2, 15, 0, 0),
+                    FirstName = "John",
+                    LastName = "Test",
+                    Email = "testJT@test.com",
+                    Phone = "43466643513",
+                    Role = Roles.Specialist,
                     OrganizationId = 2,
                 }
             );
