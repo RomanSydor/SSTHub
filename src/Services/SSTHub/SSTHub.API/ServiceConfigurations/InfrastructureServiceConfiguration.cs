@@ -28,6 +28,7 @@ namespace SSTHub.API.ServiceConfigurations
                 mc.AddProfile(new ServiceProfile());
                 mc.AddProfile(new EventProfile());
                 mc.AddProfile(new CustomerProfile());
+                mc.AddProfile(new OrganizationProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

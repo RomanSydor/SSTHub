@@ -31,11 +31,11 @@ namespace SSTHub.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Edit([FromRoute]int id, [FromBody] HubEditItemViewModel hubEditItemViewModel)
+        public async Task<IActionResult> Edit([FromRoute]int id, [FromBody] HubEditItemViewModel editItemViewModel)
         {
             try
             {
-                await _hubService.UpdateAsync(id, hubEditItemViewModel);
+                await _hubService.UpdateAsync(id, editItemViewModel);
                 return StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)

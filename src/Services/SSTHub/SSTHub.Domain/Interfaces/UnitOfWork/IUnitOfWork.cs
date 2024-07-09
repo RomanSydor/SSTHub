@@ -7,6 +7,7 @@
         IServiceRepository ServiceRepository { get; }
         IEventRepository EventRepository { get; }
         ICustomerRepository CustomerRepository { get; }
+        IOrganizationRepositiry OrganizationRepositiry { get; }
         Task SaveChangesAsync();
     }
 }
