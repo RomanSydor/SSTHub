@@ -34,14 +34,14 @@ namespace SSTHub.Application.Services
             return hub.Id;
         }
 
-        public async Task<HubListItemViewModel> GetByIdAsync(int id)
+        public async Task<HubDetailsViewModel> GetByIdAsync(int id)
         {
             var hub = await _sSTHubDbContext
                             .Hubs
                             .Where(h => h.Id == id)
                             .SingleOrDefaultAsync();
 
-            return _mapper.Map<HubListItemViewModel>(hub);
+            return _mapper.Map<HubDetailsViewModel>(hub);
         }
 
         public async Task UpdateAsync(int id, HubEditItemViewModel editItemViewModel)

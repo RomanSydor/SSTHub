@@ -33,8 +33,8 @@ namespace SSTHub.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(HubListItemViewModel), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(HubListItemViewModel), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(HubDetailsViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(HubDetailsViewModel), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             try

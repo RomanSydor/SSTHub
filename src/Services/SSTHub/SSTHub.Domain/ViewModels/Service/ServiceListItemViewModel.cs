@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SSTHub.Domain.ViewModels.Service
+﻿namespace SSTHub.Domain.ViewModels.Service
 {
     public class ServiceListItemViewModel
     {
+        public string Name { get; set; }
+        public int DurationInMinutes { get; set; }
     }
 }
