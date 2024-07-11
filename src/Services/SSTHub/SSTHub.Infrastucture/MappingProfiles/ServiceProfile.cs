@@ -8,6 +8,9 @@ namespace SSTHub.Infrastucture.MappingProfiles
     {
         public ServiceProfile()
         {
+            CreateMap<Service, ServiceListItemViewModel>();
+            CreateMap<Service, ServiceDetailsViewModel>();
+
             CreateMap<ServiceCreateViewModel, Service>();
         }
     }

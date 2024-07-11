@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.ViewModels.Service;
+using System.Net;
 
 namespace SSTHub.API.Controllers
 {
@@ -13,6 +14,58 @@ namespace SSTHub.API.Controllers
         public ServiceController(IServiceService serviceService)
         {
             _serviceService = serviceService;
+        }
+
+        [HttpGet("ByOrganizationId/{organizationId}")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetByOrganizationId([FromRoute] int organizationId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        {
+            try
+            {
+                var services = await _serviceService.GetByOrganizationIdAsync(organizationId, amount, page);
+                return StatusCode(StatusCodes.Status200OK, services);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("ByEmployeeId/{employeeId}")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetByEmployeeId([FromRoute] int employeeId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        {
+            try
+            {
+                var services = await _serviceService.GetByEmployeeIdAsync(employeeId, amount, page);
+                return StatusCode(StatusCodes.Status200OK, services);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ServiceDetailsViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ServiceDetailsViewModel), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Get([FromRoute] int id) 
+        {
+            try
+            {
+                var service = await _serviceService.GetByIdAsync(id);
+
+                if (service != null)
+                    return StatusCode(StatusCodes.Status200OK, service);
+
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
 
         [HttpPost]
