@@ -8,6 +8,8 @@ namespace SSTHub.Infrastucture.MappingProfiles
     {
         public CustomerProfile() 
         {
+            CreateMap<Customer, CustomerListItemViewModel>();
+
             CreateMap<CustomerCreateViewModel, Customer>();
         }
     }

@@ -30,7 +30,6 @@ namespace SSTHub.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
         }
 
         [HttpGet("ByHubId/{hubId}")]
@@ -47,7 +46,6 @@ namespace SSTHub.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
         }
 
         [HttpGet("{id}")]
@@ -67,7 +65,6 @@ namespace SSTHub.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
         }
 
         [HttpPost]
