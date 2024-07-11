@@ -77,5 +77,23 @@ namespace SSTHub.Application.Services
                 await _unitOfWork.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<EventListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        {
+            var hubIds = await _sSTHubDbContext
+                .Hubs
+                .Where(h => h.OrganizationId == organizationId)
+                .Select(h => h.Id)
+                .ToListAsync();
+
+            var events = await _sSTHubDbContext
+                .Events
+                .Where(e => hubIds.Contains(e.HubId))
+                .Skip(amount * page)
+                .Take(amount)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<EventListItemViewModel>>(events);
+        }
     }
 }

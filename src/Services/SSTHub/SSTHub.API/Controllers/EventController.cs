@@ -16,10 +16,27 @@ namespace SSTHub.API.Controllers
             _eventService = eventService;
         }
 
+        [HttpGet("ByOrganizationId/{organizationId}")]
+        [ProducesResponseType(typeof(IReadOnlyCollection<EventListItemViewModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IReadOnlyCollection<EventListItemViewModel>), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetOrganizationId([FromRoute] int organizationId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        {
+            try
+            {
+                var events = await _eventService.GetByOrganizationIdAsync(organizationId, amount, page);
+                return StatusCode(StatusCodes.Status200OK, events);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+
+        }
+
         [HttpGet("ByHubId/{hubId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<EventListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<EventListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Get([FromRoute] int hubId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        public async Task<IActionResult> GetByHubId([FromRoute] int hubId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
         {
             try
             {
