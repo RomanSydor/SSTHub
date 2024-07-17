@@ -1,23 +1,18 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Domain.ViewModels.Hub;
-using SSTHub.Infrastucture.Contexts;
 
 namespace SSTHub.Application.Services
 {
     public class HubService : IHubService
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public HubService(SSTHubDbContext sSTHubDbContext, IMapper mapper,
-            IUnitOfWork unitOfWork)
+        public HubService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _sSTHubDbContext = sSTHubDbContext;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -36,20 +31,13 @@ namespace SSTHub.Application.Services
 
         public async Task<HubDetailsViewModel> GetByIdAsync(int id)
         {
-            var hub = await _sSTHubDbContext
-                            .Hubs
-                            .Where(h => h.Id == id)
-                            .SingleOrDefaultAsync();
-
+            var hub = await _unitOfWork.HubRepository.GetByIdAsync(id);
             return _mapper.Map<HubDetailsViewModel>(hub);
         }
 
         public async Task UpdateAsync(int id, HubEditItemViewModel editItemViewModel)
         {
-            var hub = await _sSTHubDbContext
-                .Hubs
-                .Where(h => h.Id == id)
-                .SingleOrDefaultAsync();
+            var hub = await _unitOfWork.HubRepository.GetByIdAsync(id);
 
             if (hub != null)
             {
@@ -62,10 +50,7 @@ namespace SSTHub.Application.Services
 
         public async Task ChangeActiveStatusAsync(int id)
         {
-            var hub = await _sSTHubDbContext
-                .Hubs
-                .Where(h => h.Id == id)                      
-                .SingleOrDefaultAsync();
+            var hub = await _unitOfWork.HubRepository.GetByIdAsync(id);
 
             if (hub != null)
             {
@@ -85,13 +70,7 @@ namespace SSTHub.Application.Services
 
         public async Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
         {
-            var hubs = await _sSTHubDbContext
-                .Hubs
-                .Where(h => h.OrganizationId == organizationId)
-                .Skip(amount * page)
-                .Take(amount)
-                .ToListAsync();
-
+            var hubs = await _unitOfWork.HubRepository.GetByOrganizationIdAsync(organizationId, amount, page);
             return _mapper.Map<IEnumerable<HubListItemViewModel>>(hubs);
         }
     }

@@ -1,4 +1,5 @@
-﻿using SSTHub.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Infrastucture.Contexts;
 
@@ -15,6 +16,48 @@ namespace SSTHub.Infrastucture.Repositories
         public async Task CreateAsync(Customer customer)
         {
             await _sSTHubDbContext.AddAsync(customer);
+        }
+
+        public async Task<IEnumerable<Customer>> GetByHubIdAsync(int hubId, int amount, int page)
+        {
+            var customerIds = await _sSTHubDbContext
+                .Events
+                .Where(e => e.HubId == hubId)
+                .Select(e => e.CustomerId)
+                .ToListAsync();
+
+            var customers = await _sSTHubDbContext
+                .Customers
+                .Where(c => customerIds.Contains(c.Id))
+                .Skip(amount * page)
+                .Take(amount)
+                .ToListAsync();
+
+            return customers;
+        }
+
+        public async Task<IEnumerable<Customer>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        {
+            var hubIds = await _sSTHubDbContext
+                .Hubs
+                .Where(h => h.OrganizationId == organizationId)
+                .Select(h => h.Id)
+                .ToListAsync();
+
+            var customerIds = await _sSTHubDbContext
+                .Events
+                .Where(e => hubIds.Contains(e.HubId))
+                .Select(e => e.CustomerId)
+                .ToListAsync();
+
+            var customers = await _sSTHubDbContext
+                .Customers
+                .Where(c => customerIds.Contains(c.Id))
+                .Skip(amount * page)
+                .Take(amount)
+                .ToListAsync();
+
+            return customers;
         }
     }
 }

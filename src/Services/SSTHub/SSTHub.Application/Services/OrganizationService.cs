@@ -1,24 +1,18 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Domain.ViewModels.Organization;
-using SSTHub.Infrastucture.Contexts;
 
 namespace SSTHub.Application.Services
 {
     public class OrganizationService : IOrganizationService
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OrganizationService(SSTHubDbContext sSTHubDbContext,
-            IMapper mapper,
-            IUnitOfWork unitOfWork)
+        public OrganizationService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _sSTHubDbContext = sSTHubDbContext;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -37,20 +31,13 @@ namespace SSTHub.Application.Services
 
         public async Task<OrganizationDetailsViewModel> GetByIdAsync(int id)
         {
-            var organization = await _sSTHubDbContext.
-                Organizations
-                .Where(o => o.Id == id)
-                .SingleOrDefaultAsync();
-
+            var organization = await _unitOfWork.OrganizationRepositiry.GetByIdAsync(id);
             return _mapper.Map<OrganizationDetailsViewModel>(organization);
         }
 
         public async Task UpdateAsync(int id, OrganizationEditItemViewModel editItemViewModel)
         {
-            var organization = await _sSTHubDbContext.
-                Organizations
-                .Where(o => o.Id == id)
-                .SingleOrDefaultAsync();
+            var organization = await _unitOfWork.OrganizationRepositiry.GetByIdAsync(id);
 
             if (organization != null)
             {

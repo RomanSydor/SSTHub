@@ -6,5 +6,7 @@ namespace SSTHub.Domain.Interfaces
     {
         Task CreateAsync(Employee employee);
         void Update(Employee employee);
+        Task<IEnumerable<Employee>> GetByOrganizationIdAsync(int organizationId, int amount, int page);
+        Task<Employee> GetByIdAsync(int id);
     }
 }

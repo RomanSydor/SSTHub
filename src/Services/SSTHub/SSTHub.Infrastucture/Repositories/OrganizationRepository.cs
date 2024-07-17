@@ -1,4 +1,5 @@
-﻿using SSTHub.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Infrastucture.Contexts;
 
@@ -21,6 +22,16 @@ namespace SSTHub.Infrastucture.Repositories
         public void Update(Organization organization)
         {
             _sSTHubDbContext.Update(organization);
+        }
+
+        public async Task<Organization> GetByIdAsync(int id)
+        {
+            var organization = await _sSTHubDbContext.
+                Organizations
+                .Where(o => o.Id == id)
+                .SingleOrDefaultAsync();
+
+            return organization;
         }
     }
 }

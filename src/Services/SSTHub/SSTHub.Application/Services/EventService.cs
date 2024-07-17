@@ -1,49 +1,39 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Enums;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Domain.ViewModels.Event;
-using SSTHub.Infrastucture.Contexts;
 
 namespace SSTHub.Application.Services
 {
     public class EventService : IEventService
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public EventService(SSTHubDbContext sSTHubDbContext,
-            IMapper mapper,
-            IUnitOfWork unitOfWork)
+        public EventService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _sSTHubDbContext = sSTHubDbContext;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<EventListItemViewModel>> GetByHubIdAsync(int hubId, int amount, int page)
         {
-            var @event = await _sSTHubDbContext
-               .Events
-               .Where(e => e.HubId == hubId)
-               .Skip(amount * page)
-               .Take(amount)
-               .ToListAsync();
-
+            var @event = await _unitOfWork.EventRepository.GetByHubIdAsync(hubId, amount, page);
             return _mapper.Map<IEnumerable<EventListItemViewModel>>(@event);
         }
 
         public async Task<EventDetailsViewModel> GetByIdAsync(int id)
         {
-            var @event = await _sSTHubDbContext
-                .Events
-                .Where(e => e.Id == id)
-                .SingleOrDefaultAsync();
-
+            var @event = await _unitOfWork.EventRepository.GetByIdAsync(id);
             return _mapper.Map<EventDetailsViewModel>(@event);
+        }
+
+        public async Task<IEnumerable<EventListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        {
+            var events = await _unitOfWork.EventRepository.GetByOrganizationIdAsync(organizationId, amount, page);
+            return _mapper.Map<IEnumerable<EventListItemViewModel>>(events);
         }
 
         public async Task<int> CreateAsync(EventCreateViewModel createViewModel)
@@ -60,10 +50,7 @@ namespace SSTHub.Application.Services
 
         public async Task UpdateAsync(int id, EventEditItemViewModel editItemViewModel)
         {
-            var @event = await _sSTHubDbContext
-                .Events
-                .Where(e => e.Id == id)
-                .SingleOrDefaultAsync();
+            var @event = await _unitOfWork.EventRepository.GetByIdAsync(id);
 
             if (@event != null)
             {
@@ -76,24 +63,6 @@ namespace SSTHub.Application.Services
                 _unitOfWork.EventRepository.Update(@event);
                 await _unitOfWork.SaveChangesAsync();
             }
-        }
-
-        public async Task<IEnumerable<EventListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
-        {
-            var hubIds = await _sSTHubDbContext
-                .Hubs
-                .Where(h => h.OrganizationId == organizationId)
-                .Select(h => h.Id)
-                .ToListAsync();
-
-            var events = await _sSTHubDbContext
-                .Events
-                .Where(e => hubIds.Contains(e.HubId))
-                .Skip(amount * page)
-                .Take(amount)
-                .ToListAsync();
-
-            return _mapper.Map<IEnumerable<EventListItemViewModel>>(events);
         }
     }
 }

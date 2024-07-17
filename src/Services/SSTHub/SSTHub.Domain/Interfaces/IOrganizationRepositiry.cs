@@ -6,5 +6,6 @@ namespace SSTHub.Domain.Interfaces
     {
         Task CreateAsync(Organization organization);
         void Update(Organization organization);
+        Task<Organization> GetByIdAsync(int id);
     }
 }
