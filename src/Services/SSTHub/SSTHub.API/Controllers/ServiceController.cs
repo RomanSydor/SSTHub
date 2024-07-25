@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.ViewModels.Service;
 using System.Net;
 
 namespace SSTHub.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class ServiceController : ControllerBase
     {
@@ -16,14 +17,15 @@ namespace SSTHub.API.Controllers
             _serviceService = serviceService;
         }
 
+        [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetByOrganizationId([FromRoute] int organizationId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        public async Task<IActionResult> GetByOrganizationId([FromRoute] int organizationId)
         {
             try
             {
-                var services = await _serviceService.GetByOrganizationIdAsync(organizationId, amount, page);
+                var services = await _serviceService.GetByOrganizationIdAsync(organizationId);
                 return StatusCode(StatusCodes.Status200OK, services);
             }
             catch (Exception e)
@@ -32,14 +34,15 @@ namespace SSTHub.API.Controllers
             }
         }
 
+        [EnableQuery]
         [HttpGet("ByEmployeeId/{employeeId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<ServiceListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetByEmployeeId([FromRoute] int employeeId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        public async Task<IActionResult> GetByEmployeeId([FromRoute] int employeeId)
         {
             try
             {
-                var services = await _serviceService.GetByEmployeeIdAsync(employeeId, amount, page);
+                var services = await _serviceService.GetByEmployeeIdAsync(employeeId);
                 return StatusCode(StatusCodes.Status200OK, services);
             }
             catch (Exception e)
@@ -51,7 +54,7 @@ namespace SSTHub.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ServiceDetailsViewModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ServiceDetailsViewModel), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Get([FromRoute] int id) 
+        public async Task<IActionResult> GetById([FromRoute] int id) 
         {
             try
             {

@@ -28,15 +28,15 @@ namespace SSTHub.Application.Services
             return customer.Id;
         }
 
-        public async Task<IEnumerable<CustomerListItemViewModel>> GetByHubIdAsync(int hubId, int amount, int page)
+        public async Task<IEnumerable<CustomerListItemViewModel>> GetByHubIdAsync(int hubId)
         {
-            var customers = await _unitOfWork.CustomerRepository.GetByHubIdAsync(hubId, amount, page);
+            var customers = await _unitOfWork.CustomerRepository.GetByHubIdAsync(hubId);
             return _mapper.Map<IEnumerable<CustomerListItemViewModel>>(customers);
         }
 
-        public async Task<IEnumerable<CustomerListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<CustomerListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {
-            var customers = await _unitOfWork.CustomerRepository.GetByOrganizationIdAsync(organizationId, amount, page);
+            var customers = await _unitOfWork.CustomerRepository.GetByOrganizationIdAsync(organizationId);
             return _mapper.Map<IEnumerable<CustomerListItemViewModel>>(customers);
         }
     }

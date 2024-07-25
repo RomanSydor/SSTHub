@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OData.ModelBuilder;
+using OData.Swagger.Services;
+using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Infrastucture.Contexts;
 using SSTHub.Infrastucture.MappingProfiles;
@@ -47,6 +51,29 @@ namespace SSTHub.API.ServiceConfigurations
                         .AllowAnyOrigin();
                 });
             });
+        }
+
+        public static void AddControllersWithOdata(this IServiceCollection services)
+        {
+            var modelBuilder = new ODataConventionModelBuilder();
+            modelBuilder.EntitySet<Customer>(nameof(Customer));
+            modelBuilder.EntitySet<Employee>(nameof(Employee));
+            modelBuilder.EntitySet<Event>(nameof(Event));
+            modelBuilder.EntitySet<Hub>(nameof(Hub));
+            modelBuilder.EntitySet<Organization>(nameof(Organization));
+            modelBuilder.EntitySet<Service>(nameof(Service));
+
+            services
+                .AddControllers()
+                .AddOData(options => options
+                    .Filter()
+                    .OrderBy()
+                    .Count()
+                    .SetMaxTop(null)
+                    .AddRouteComponents(model: modelBuilder.GetEdmModel())
+                );
+
+            services.AddOdataSwaggerSupport();
         }
     }
 }

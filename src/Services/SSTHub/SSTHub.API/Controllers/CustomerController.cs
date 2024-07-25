@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.ViewModels.Customer;
 using System.Net;
 
 namespace SSTHub.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -16,14 +17,15 @@ namespace SSTHub.API.Controllers
             _customerService = customerService;
         }
 
+        [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetOrganizationId([FromRoute] int organizationId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        public async Task<IActionResult> GetOrganizationId([FromRoute] int organizationId)
         {
             try
             {
-                var customers = await _customerService.GetByOrganizationIdAsync(organizationId, amount, page);
+                var customers = await _customerService.GetByOrganizationIdAsync(organizationId);
                 return StatusCode(StatusCodes.Status200OK, customers);
             }
             catch (Exception e)
@@ -32,14 +34,15 @@ namespace SSTHub.API.Controllers
             }
         }
 
+        [EnableQuery]
         [HttpGet("ByHubId/{hubId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetByHubId([FromRoute] int hubId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        public async Task<IActionResult> GetByHubId([FromRoute] int hubId)
         {
             try
             {
-                var customers = await _customerService.GetByHubIdAsync(hubId, amount, page);
+                var customers = await _customerService.GetByHubIdAsync(hubId);
                 return StatusCode(StatusCodes.Status200OK, customers);
             }
             catch (Exception e)

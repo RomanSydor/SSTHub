@@ -17,9 +17,9 @@ namespace SSTHub.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<EmployeeListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<EmployeeListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {  
-            var employees = await _unitOfWork.EmployeeRepository.GetByOrganizationIdAsync(organizationId, amount, page);
+            var employees = await _unitOfWork.EmployeeRepository.GetByOrganizationIdAsync(organizationId);
             return _mapper.Map<IEnumerable<EmployeeListItemViewModel>>(employees);
         }
 

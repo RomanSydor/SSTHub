@@ -18,7 +18,7 @@ namespace SSTHub.Infrastucture.Repositories
             await _sSTHubDbContext.AddAsync(customer);
         }
 
-        public async Task<IEnumerable<Customer>> GetByHubIdAsync(int hubId, int amount, int page)
+        public async Task<IEnumerable<Customer>> GetByHubIdAsync(int hubId)
         {
             var customerIds = await _sSTHubDbContext
                 .Events
@@ -29,14 +29,12 @@ namespace SSTHub.Infrastucture.Repositories
             var customers = await _sSTHubDbContext
                 .Customers
                 .Where(c => customerIds.Contains(c.Id))
-                .Skip(amount * page)
-                .Take(amount)
                 .ToListAsync();
 
             return customers;
         }
 
-        public async Task<IEnumerable<Customer>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<Customer>> GetByOrganizationIdAsync(int organizationId)
         {
             var hubIds = await _sSTHubDbContext
                 .Hubs
@@ -53,8 +51,6 @@ namespace SSTHub.Infrastucture.Repositories
             var customers = await _sSTHubDbContext
                 .Customers
                 .Where(c => customerIds.Contains(c.Id))
-                .Skip(amount * page)
-                .Take(amount)
                 .ToListAsync();
 
             return customers;

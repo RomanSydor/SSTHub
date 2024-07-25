@@ -68,15 +68,15 @@ namespace SSTHub.Application.Services
             return _mapper.Map<ServiceDetailsViewModel>(service);
         }
 
-        public async Task<IEnumerable<ServiceListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<ServiceListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {
-            var services = await _unitOfWork.ServiceRepository.GetByOrganizationIdAsync(organizationId, amount, page);
+            var services = await _unitOfWork.ServiceRepository.GetByOrganizationIdAsync(organizationId);
             return _mapper.Map<IEnumerable<ServiceListItemViewModel>>(services);
         }
 
-        public async Task<IEnumerable<ServiceListItemViewModel>> GetByEmployeeIdAsync(int employeeId, int amount, int page)
+        public async Task<IEnumerable<ServiceListItemViewModel>> GetByEmployeeIdAsync(int employeeId)
         {
-            var services = await _unitOfWork.ServiceRepository.GetByEmployeeIdAsync(employeeId, amount, page);
+            var services = await _unitOfWork.ServiceRepository.GetByEmployeeIdAsync(employeeId);
             return _mapper.Map<IEnumerable<ServiceListItemViewModel>>(services);
         }
     }

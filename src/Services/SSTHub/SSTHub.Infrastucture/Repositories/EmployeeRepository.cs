@@ -34,13 +34,11 @@ namespace SSTHub.Infrastucture.Repositories
             return employee;
         }
 
-        public async Task<IEnumerable<Employee>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<Employee>> GetByOrganizationIdAsync(int organizationId)
         {
             var employees = await _sSTHubDbContext
                 .Employees
                 .Where(e => e.OrganizationId == organizationId)
-                .Skip(amount * page)
-                .Take(amount)
                 .ToListAsync();
 
             return employees;

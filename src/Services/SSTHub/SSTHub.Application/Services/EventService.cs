@@ -18,9 +18,9 @@ namespace SSTHub.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<EventListItemViewModel>> GetByHubIdAsync(int hubId, int amount, int page)
+        public async Task<IEnumerable<EventListItemViewModel>> GetByHubIdAsync(int hubId)
         {
-            var @event = await _unitOfWork.EventRepository.GetByHubIdAsync(hubId, amount, page);
+            var @event = await _unitOfWork.EventRepository.GetByHubIdAsync(hubId);
             return _mapper.Map<IEnumerable<EventListItemViewModel>>(@event);
         }
 
@@ -30,9 +30,9 @@ namespace SSTHub.Application.Services
             return _mapper.Map<EventDetailsViewModel>(@event);
         }
 
-        public async Task<IEnumerable<EventListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<EventListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {
-            var events = await _unitOfWork.EventRepository.GetByOrganizationIdAsync(organizationId, amount, page);
+            var events = await _unitOfWork.EventRepository.GetByOrganizationIdAsync(organizationId);
             return _mapper.Map<IEnumerable<EventListItemViewModel>>(events);
         }
 

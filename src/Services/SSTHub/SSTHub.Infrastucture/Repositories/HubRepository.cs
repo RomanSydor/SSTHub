@@ -33,13 +33,11 @@ namespace SSTHub.Infrastucture.Repositories
             return hub;
         }
 
-        public async Task<IEnumerable<Hub>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<Hub>> GetByOrganizationIdAsync(int organizationId)
         {
             var hubs = await _sSTHubDbContext
                 .Hubs
                 .Where(h => h.OrganizationId == organizationId)
-                .Skip(amount * page)
-                .Take(amount)
                 .ToListAsync();
 
             return hubs;

@@ -24,7 +24,7 @@ namespace SSTHub.Infrastucture.Repositories
             _sSTHubDbContext.Update(service);
         }
 
-        public async Task<IEnumerable<Service>> GetByEmployeeIdAsync(int employeeId, int amount, int page)
+        public async Task<IEnumerable<Service>> GetByEmployeeIdAsync(int employeeId)
         {
             var serviceIds = await _sSTHubDbContext.Set<Dictionary<string, object>>("EmployeeService")
                 .Select(es => new
@@ -39,8 +39,6 @@ namespace SSTHub.Infrastucture.Repositories
             var services = await _sSTHubDbContext
                 .Services
                 .Where(s => serviceIds.Contains(s.Id))
-                .Skip(amount * page)
-                .Take(amount)
                 .ToListAsync();
 
             return services;
@@ -56,7 +54,7 @@ namespace SSTHub.Infrastucture.Repositories
             return service;
         }
 
-        public async Task<IEnumerable<Service>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<Service>> GetByOrganizationIdAsync(int organizationId)
         {
             var employeeIds = await _sSTHubDbContext
                 .Employees
@@ -77,8 +75,6 @@ namespace SSTHub.Infrastucture.Repositories
             var services = await _sSTHubDbContext
                 .Services
                 .Where(s => serviceIds.Contains(s.Id))
-                .Skip(amount * page)
-                .Take(amount)
                 .ToListAsync();
 
             return services;

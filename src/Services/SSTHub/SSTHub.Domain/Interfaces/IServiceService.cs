@@ -8,7 +8,7 @@ namespace SSTHub.Domain.Interfaces
         Task UpdateAsync(int id, ServiceEditItemViewModel editItemViewModel);
         Task ChangeActiveStatusAsync(int id);
         Task<ServiceDetailsViewModel> GetByIdAsync(int id);
-        Task<IEnumerable<ServiceListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page);
-        Task<IEnumerable<ServiceListItemViewModel>> GetByEmployeeIdAsync(int employeeId, int amount, int page);
+        Task<IEnumerable<ServiceListItemViewModel>> GetByOrganizationIdAsync(int organizationId);
+        Task<IEnumerable<ServiceListItemViewModel>> GetByEmployeeIdAsync(int employeeId);
     }
 }

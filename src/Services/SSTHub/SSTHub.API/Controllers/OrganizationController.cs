@@ -5,7 +5,7 @@ using System.Net;
 
 namespace SSTHub.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class OrganizationController : ControllerBase
     {

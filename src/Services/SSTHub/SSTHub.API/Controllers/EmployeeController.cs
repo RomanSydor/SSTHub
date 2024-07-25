@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.ViewModels.Employee;
 using System.Net;
 
 namespace SSTHub.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -16,14 +17,15 @@ namespace SSTHub.API.Controllers
             _employeeService = employeeService;
         }
 
+        [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Get([FromRoute] int organizationId, [FromQuery] int amount = 20, [FromQuery] int page = 0)
+        public async Task<IActionResult> Get([FromRoute] int organizationId)
         {
             try
             {
-                var employees = await _employeeService.GetByOrganizationIdAsync(organizationId, amount, page);
+                var employees = await _employeeService.GetByOrganizationIdAsync(organizationId);
                 return StatusCode(StatusCodes.Status200OK, employees);
             }
             catch (Exception e)
@@ -36,7 +38,7 @@ namespace SSTHub.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(EmployeeDetailsViewModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(EmployeeDetailsViewModel), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try
             {

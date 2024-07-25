@@ -68,9 +68,9 @@ namespace SSTHub.Application.Services
             }
         }
 
-        public async Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {
-            var hubs = await _unitOfWork.HubRepository.GetByOrganizationIdAsync(organizationId, amount, page);
+            var hubs = await _unitOfWork.HubRepository.GetByOrganizationIdAsync(organizationId);
             return _mapper.Map<IEnumerable<HubListItemViewModel>>(hubs);
         }
     }

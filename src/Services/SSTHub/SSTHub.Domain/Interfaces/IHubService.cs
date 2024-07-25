@@ -8,6 +8,6 @@ namespace SSTHub.Domain.Interfaces
         Task UpdateAsync(int id, HubEditItemViewModel editItemViewModel);
         Task ChangeActiveStatusAsync(int id);
         Task<HubDetailsViewModel> GetByIdAsync(int id);
-        Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId, int amount, int page);
+        Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId);
     }
 }

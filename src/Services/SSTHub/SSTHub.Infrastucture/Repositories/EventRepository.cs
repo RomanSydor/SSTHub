@@ -23,13 +23,11 @@ namespace SSTHub.Infrastucture.Repositories
             _sSTHubDbContext.Update(@event);
         }
 
-        public async Task<IEnumerable<Event>> GetByHubIdAsync(int hubId, int amount, int page)
+        public async Task<IEnumerable<Event>> GetByHubIdAsync(int hubId)
         {
             var @event = await _sSTHubDbContext
                .Events
                .Where(e => e.HubId == hubId)
-               .Skip(amount * page)
-               .Take(amount)
                .ToListAsync();
 
             return @event;
@@ -45,7 +43,7 @@ namespace SSTHub.Infrastucture.Repositories
             return @event;
         }
 
-        public async Task<IEnumerable<Event>> GetByOrganizationIdAsync(int organizationId, int amount, int page)
+        public async Task<IEnumerable<Event>> GetByOrganizationIdAsync(int organizationId)
         {
             var hubIds = await _sSTHubDbContext
                 .Hubs
@@ -56,8 +54,6 @@ namespace SSTHub.Infrastucture.Repositories
             var events = await _sSTHubDbContext
                 .Events
                 .Where(e => hubIds.Contains(e.HubId))
-                .Skip(amount * page)
-                .Take(amount)
                 .ToListAsync();
 
             return events;
