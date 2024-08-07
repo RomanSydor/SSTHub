@@ -3,6 +3,7 @@ using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Domain.ViewModels.Hub;
+using System.Collections.Immutable;
 
 namespace SSTHub.Application.Services
 {
@@ -68,10 +69,10 @@ namespace SSTHub.Application.Services
             }
         }
 
-        public async Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
+        public async Task<ImmutableList<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {
             var hubs = await _unitOfWork.HubRepository.GetByOrganizationIdAsync(organizationId);
-            return _mapper.Map<IEnumerable<HubListItemViewModel>>(hubs);
+            return _mapper.Map<ImmutableList<HubListItemViewModel>>(hubs);
         }
     }
 }

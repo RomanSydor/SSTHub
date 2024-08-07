@@ -1,4 +1,5 @@
 ﻿using SSTHub.Domain.Entities;
+using System.Collections.Immutable;
 
 namespace SSTHub.Domain.Interfaces
 {
@@ -7,7 +8,7 @@ namespace SSTHub.Domain.Interfaces
         Task CreateAsync(Hub hub);
         void Update(Hub hub);
         Task<Hub> GetByIdAsync(int id);
-        Task<IEnumerable<Hub>> GetByOrganizationIdAsync(int organizationId);
+        Task<ImmutableList<Hub>> GetByOrganizationIdAsync(int organizationId);
 
     }
 }

@@ -2,6 +2,7 @@
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Infrastucture.Contexts;
+using System.Collections.Immutable;
 
 namespace SSTHub.Infrastucture.Repositories
 {
@@ -33,14 +34,14 @@ namespace SSTHub.Infrastucture.Repositories
             return hub;
         }
 
-        public async Task<IEnumerable<Hub>> GetByOrganizationIdAsync(int organizationId)
+        public async Task<ImmutableList<Hub>> GetByOrganizationIdAsync(int organizationId)
         {
             var hubs = await _sSTHubDbContext
                 .Hubs
                 .Where(h => h.OrganizationId == organizationId)
                 .ToListAsync();
 
-            return hubs;
+            return hubs.ToImmutableList();
         }
     }
 }

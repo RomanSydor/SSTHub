@@ -1,4 +1,5 @@
 ﻿using SSTHub.Domain.ViewModels.Service;
+using System.Collections.Immutable;
 
 namespace SSTHub.Domain.Interfaces
 {
@@ -8,7 +9,7 @@ namespace SSTHub.Domain.Interfaces
         Task UpdateAsync(int id, ServiceEditItemViewModel editItemViewModel);
         Task ChangeActiveStatusAsync(int id);
         Task<ServiceDetailsViewModel> GetByIdAsync(int id);
-        Task<IEnumerable<ServiceListItemViewModel>> GetByOrganizationIdAsync(int organizationId);
-        Task<IEnumerable<ServiceListItemViewModel>> GetByEmployeeIdAsync(int employeeId);
+        Task<ImmutableList<ServiceListItemViewModel>> GetByOrganizationIdAsync(int organizationId);
+        Task<ImmutableList<ServiceListItemViewModel>> GetByEmployeeIdAsync(int employeeId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SSTHub.Domain.ViewModels.Hub;
+using System.Collections.Immutable;
 
 namespace SSTHub.Domain.Interfaces
 {
@@ -8,6 +9,6 @@ namespace SSTHub.Domain.Interfaces
         Task UpdateAsync(int id, HubEditItemViewModel editItemViewModel);
         Task ChangeActiveStatusAsync(int id);
         Task<HubDetailsViewModel> GetByIdAsync(int id);
-        Task<IEnumerable<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId);
+        Task<ImmutableList<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId);
     }
 }

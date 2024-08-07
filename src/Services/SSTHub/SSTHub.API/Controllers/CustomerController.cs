@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.OData.Query;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.ViewModels.Customer;
-using System.Net;
+using System.Collections.Immutable;
 
 namespace SSTHub.API.Controllers
 {
@@ -19,50 +19,22 @@ namespace SSTHub.API.Controllers
 
         [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
-        [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetOrganizationId([FromRoute] int organizationId)
+        public async Task<ImmutableList<CustomerListItemViewModel>> GetOrganizationId([FromRoute] int organizationId)
         {
-            try
-            {
-                var customers = await _customerService.GetByOrganizationIdAsync(organizationId);
-                return StatusCode(StatusCodes.Status200OK, customers);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
+            return await _customerService.GetByOrganizationIdAsync(organizationId);
         }
 
         [EnableQuery]
         [HttpGet("ByHubId/{hubId}")]
-        [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(IReadOnlyCollection<CustomerListItemViewModel>), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetByHubId([FromRoute] int hubId)
+        public async Task<ImmutableList<CustomerListItemViewModel>> GetByHubId([FromRoute] int hubId)
         {
-            try
-            {
-                var customers = await _customerService.GetByHubIdAsync(hubId);
-                return StatusCode(StatusCodes.Status200OK, customers);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
+            return await _customerService.GetByHubIdAsync(hubId);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CustomerCreateViewModel createViewModel)
+        public async Task<int> Create([FromBody] CustomerCreateViewModel createViewModel)
         {
-            try
-            {
-                var customerId = await _customerService.CreateAsync(createViewModel);
-                return StatusCode(StatusCodes.Status200OK, customerId);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
+            return await _customerService.CreateAsync(createViewModel);
         }
     }
 }

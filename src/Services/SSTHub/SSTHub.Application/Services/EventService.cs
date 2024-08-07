@@ -4,6 +4,7 @@ using SSTHub.Domain.Enums;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Domain.ViewModels.Event;
+using System.Collections.Immutable;
 
 namespace SSTHub.Application.Services
 {
@@ -18,10 +19,10 @@ namespace SSTHub.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<EventListItemViewModel>> GetByHubIdAsync(int hubId)
+        public async Task<ImmutableList<EventListItemViewModel>> GetByHubIdAsync(int hubId)
         {
             var @event = await _unitOfWork.EventRepository.GetByHubIdAsync(hubId);
-            return _mapper.Map<IEnumerable<EventListItemViewModel>>(@event);
+            return _mapper.Map<ImmutableList<EventListItemViewModel>>(@event);
         }
 
         public async Task<EventDetailsViewModel> GetByIdAsync(int id)
@@ -30,10 +31,10 @@ namespace SSTHub.Application.Services
             return _mapper.Map<EventDetailsViewModel>(@event);
         }
 
-        public async Task<IEnumerable<EventListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
+        public async Task<ImmutableList<EventListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {
             var events = await _unitOfWork.EventRepository.GetByOrganizationIdAsync(organizationId);
-            return _mapper.Map<IEnumerable<EventListItemViewModel>>(events);
+            return _mapper.Map<ImmutableList<EventListItemViewModel>>(events);
         }
 
         public async Task<int> CreateAsync(EventCreateViewModel createViewModel)

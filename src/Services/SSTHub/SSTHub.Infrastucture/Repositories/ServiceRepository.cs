@@ -2,6 +2,7 @@
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Infrastucture.Contexts;
+using System.Collections.Immutable;
 
 namespace SSTHub.Infrastucture.Repositories
 {
@@ -24,7 +25,7 @@ namespace SSTHub.Infrastucture.Repositories
             _sSTHubDbContext.Update(service);
         }
 
-        public async Task<IEnumerable<Service>> GetByEmployeeIdAsync(int employeeId)
+        public async Task<ImmutableList<Service>> GetByEmployeeIdAsync(int employeeId)
         {
             var serviceIds = await _sSTHubDbContext.Set<Dictionary<string, object>>("EmployeeService")
                 .Select(es => new
@@ -41,7 +42,7 @@ namespace SSTHub.Infrastucture.Repositories
                 .Where(s => serviceIds.Contains(s.Id))
                 .ToListAsync();
 
-            return services;
+            return services.ToImmutableList();
         }
 
         public async Task<Service> GetByIdAsync(int id)
@@ -54,7 +55,7 @@ namespace SSTHub.Infrastucture.Repositories
             return service;
         }
 
-        public async Task<IEnumerable<Service>> GetByOrganizationIdAsync(int organizationId)
+        public async Task<ImmutableList<Service>> GetByOrganizationIdAsync(int organizationId)
         {
             var employeeIds = await _sSTHubDbContext
                 .Employees
@@ -77,7 +78,7 @@ namespace SSTHub.Infrastucture.Repositories
                 .Where(s => serviceIds.Contains(s.Id))
                 .ToListAsync();
 
-            return services;
+            return services.ToImmutableList();
         }
     }
 }

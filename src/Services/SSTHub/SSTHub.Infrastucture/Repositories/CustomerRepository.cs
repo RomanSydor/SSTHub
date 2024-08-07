@@ -2,6 +2,7 @@
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Infrastucture.Contexts;
+using System.Collections.Immutable;
 
 namespace SSTHub.Infrastucture.Repositories
 {
@@ -18,7 +19,7 @@ namespace SSTHub.Infrastucture.Repositories
             await _sSTHubDbContext.AddAsync(customer);
         }
 
-        public async Task<IEnumerable<Customer>> GetByHubIdAsync(int hubId)
+        public async Task<ImmutableList<Customer>> GetByHubIdAsync(int hubId)
         {
             var customerIds = await _sSTHubDbContext
                 .Events
@@ -31,10 +32,10 @@ namespace SSTHub.Infrastucture.Repositories
                 .Where(c => customerIds.Contains(c.Id))
                 .ToListAsync();
 
-            return customers;
+            return customers.ToImmutableList();
         }
 
-        public async Task<IEnumerable<Customer>> GetByOrganizationIdAsync(int organizationId)
+        public async Task<ImmutableList<Customer>> GetByOrganizationIdAsync(int organizationId)
         {
             var hubIds = await _sSTHubDbContext
                 .Hubs
@@ -53,7 +54,7 @@ namespace SSTHub.Infrastucture.Repositories
                 .Where(c => customerIds.Contains(c.Id))
                 .ToListAsync();
 
-            return customers;
+            return customers.ToImmutableList();
         }
     }
 }
