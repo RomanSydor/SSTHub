@@ -39,34 +39,19 @@ namespace SSTHub.Application.Services
         public async Task UpdateAsync(int id, HubEditItemViewModel editItemViewModel)
         {
             var hub = await _unitOfWork.HubRepository.GetByIdAsync(id);
+            hub.Name = editItemViewModel.Name;
 
-            if (hub != null)
-            {
-                hub.Name = editItemViewModel.Name;
-
-                _unitOfWork.HubRepository.Update(hub);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.HubRepository.Update(hub);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task ChangeActiveStatusAsync(int id)
         {
             var hub = await _unitOfWork.HubRepository.GetByIdAsync(id);
+            hub.IsActive = !hub.IsActive;
 
-            if (hub != null)
-            {
-                if (hub.IsActive)
-                {
-                    hub.IsActive = false;
-                }
-                else
-                {
-                    hub.IsActive = true;
-                }
-
-                _unitOfWork.HubRepository.Update(hub);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.HubRepository.Update(hub);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<ImmutableList<HubListItemViewModel>> GetByOrganizationIdAsync(int organizationId)

@@ -21,21 +21,10 @@ namespace SSTHub.Application.Services
         public async Task ChangeActiveStatusAsync(int id)
         {
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            service.IsActive = !service.IsActive;
 
-            if (service != null)
-            {
-                if (service.IsActive)
-                {
-                    service.IsActive = false;
-                }
-                else
-                {
-                    service.IsActive = true;
-                }
-
-                _unitOfWork.ServiceRepository.Update(service);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.ServiceRepository.Update(service);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<int> CreateAsync(ServiceCreateViewModel createViewModel)
@@ -49,20 +38,18 @@ namespace SSTHub.Application.Services
 
             return service.Id;
         }
+
         public async Task UpdateAsync(int id, ServiceEditItemViewModel editItemViewModel)
         {
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            service.Price = editItemViewModel.Price;
+            service.DurationInMinutes = editItemViewModel.DurationInMinutes;
+            service.Name = editItemViewModel.Name;
 
-            if (service != null)
-            {
-                service.Price = editItemViewModel.Price;
-                service.DurationInMinutes = editItemViewModel.DurationInMinutes;
-                service.Name = editItemViewModel.Name;
-
-                _unitOfWork.ServiceRepository.Update(service);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.ServiceRepository.Update(service);
+            await _unitOfWork.SaveChangesAsync();
         }
+
         public async Task<ServiceDetailsViewModel> GetByIdAsync(int id)
         {
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);

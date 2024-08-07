@@ -33,21 +33,10 @@ namespace SSTHub.Application.Services
         public async Task ChangeActiveStatusAsync(int id)
         {
             var employee = await _unitOfWork.EmployeeRepository.GetByIdAsync(id);
+            employee.IsActive = !employee.IsActive;
 
-            if (employee != null)
-            {
-                if (employee.IsActive)
-                {
-                    employee.IsActive = false;
-                }
-                else
-                {
-                    employee.IsActive = true;
-                }
-
-                _unitOfWork.EmployeeRepository.Update(employee);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.EmployeeRepository.Update(employee);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<int> CreateAsync(EmployeeCreateViewModel createViewModel)
@@ -65,16 +54,12 @@ namespace SSTHub.Application.Services
         public async Task UpdateAsync(int id, EmployeeEditItemViewModel editItemViewModel)
         {
             var employee = await _unitOfWork.EmployeeRepository.GetByIdAsync(id);
+            employee.FirstName = editItemViewModel.FirstName;
+            employee.LastName = editItemViewModel.LastName;
+            employee.Phone = editItemViewModel.Phone;
 
-            if (employee != null)
-            {
-                employee.FirstName = editItemViewModel.FirstName;
-                employee.LastName = editItemViewModel.LastName;
-                employee.Phone = editItemViewModel.Phone;
-
-                _unitOfWork.EmployeeRepository.Update(employee);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.EmployeeRepository.Update(employee);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

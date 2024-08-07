@@ -52,18 +52,14 @@ namespace SSTHub.Application.Services
         public async Task UpdateAsync(int id, EventEditItemViewModel editItemViewModel)
         {
             var @event = await _unitOfWork.EventRepository.GetByIdAsync(id);
+            @event.StartAt = editItemViewModel.StartAt;
+            @event.Status = editItemViewModel.Status;
+            @event.CustomerId = editItemViewModel.CustomerId;
+            @event.EmployeeId = editItemViewModel.EmployeeId;
+            @event.ServiceId = editItemViewModel.ServiceId;
 
-            if (@event != null)
-            {
-                @event.StartAt = editItemViewModel.StartAt;
-                @event.Status = editItemViewModel.Status;
-                @event.CustomerId = editItemViewModel.CustomerId;
-                @event.EmployeeId = editItemViewModel.EmployeeId;
-                @event.ServiceId = editItemViewModel.ServiceId;
-
-                _unitOfWork.EventRepository.Update(@event);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.EventRepository.Update(@event);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

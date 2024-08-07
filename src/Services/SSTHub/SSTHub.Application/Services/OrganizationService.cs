@@ -38,14 +38,10 @@ namespace SSTHub.Application.Services
         public async Task UpdateAsync(int id, OrganizationEditItemViewModel editItemViewModel)
         {
             var organization = await _unitOfWork.OrganizationRepositiry.GetByIdAsync(id);
+            organization.Name = editItemViewModel.Name;
 
-            if (organization != null)
-            {
-                organization.Name = editItemViewModel.Name;
-
-                _unitOfWork.OrganizationRepositiry.Update(organization);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.OrganizationRepositiry.Update(organization);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }
