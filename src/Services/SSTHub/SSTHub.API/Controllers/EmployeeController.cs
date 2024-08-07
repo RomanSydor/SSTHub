@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.ViewModels.Employee;
-using System.Collections.Immutable;
 
 namespace SSTHub.API.Controllers
 {
@@ -15,13 +13,6 @@ namespace SSTHub.API.Controllers
         public EmployeeController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
-        }
-
-        [EnableQuery]
-        [HttpGet("ByOrganizationId/{organizationId}")]
-        public async Task<ImmutableList<EmployeeListItemViewModel>> Get([FromRoute] int organizationId)
-        {
-            return await _employeeService.GetByOrganizationIdAsync(organizationId);
         }
 
         [HttpGet("{id}")]

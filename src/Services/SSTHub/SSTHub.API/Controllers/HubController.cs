@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.ViewModels.Hub;
-using System.Collections.Immutable;
 
 namespace SSTHub.API.Controllers
 {
@@ -16,13 +14,6 @@ namespace SSTHub.API.Controllers
         public HubController(IHubService hubSerice) 
         {
             _hubService = hubSerice;
-        }
-
-        [EnableQuery]
-        [HttpGet("ByOrganizationId/{organizationId}")]
-        public async Task<ImmutableList<HubListItemViewModel>> GetByOrganizationId([FromRoute] int organizationId)
-        {
-            return await _hubService.GetByOrganizationIdAsync(organizationId);
         }
 
         [HttpGet("{id}")]
