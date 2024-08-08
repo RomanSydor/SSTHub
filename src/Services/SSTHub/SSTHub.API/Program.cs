@@ -1,3 +1,4 @@
+using SSTHub.API.Middlewares;
 using SSTHub.API.ServiceConfigurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,5 +33,7 @@ app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseExceptionHandleMiddleware();
 
 app.Run();
