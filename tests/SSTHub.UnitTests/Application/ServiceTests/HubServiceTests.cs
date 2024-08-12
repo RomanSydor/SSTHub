@@ -18,7 +18,10 @@ namespace SSTHub.UnitTests.Application.ServiceTests
             //Arrange
             var hub = _hubBuilder.WithDefaultValues();
 
-            _mockUnitOfWork.HubRepository.GetByIdAsync(hub.Id).Returns(hub);
+            _mockUnitOfWork
+                .HubRepository
+                .GetByIdAsync(hub.Id)
+                .Returns(hub);
 
             var hubService = new HubService(_mockMapper, _mockUnitOfWork);
             //Act

@@ -18,7 +18,10 @@ namespace SSTHub.UnitTests.Application.ServiceTests
             //Arrange
             var service = _serviceBuilder.WithDefaultValues();
 
-            _mockUnitOfWork.ServiceRepository.GetByIdAsync(service.Id).Returns(service);
+            _mockUnitOfWork
+                .ServiceRepository
+                .GetByIdAsync(service.Id)
+                .Returns(service);
 
             var serviceService = new ServiceService(_mockMapper, _mockUnitOfWork);
             //Act

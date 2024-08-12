@@ -18,7 +18,10 @@ namespace SSTHub.UnitTests.Application.ServiceTests
             //Arrange
             var employee = _employeeBuilder.WithDefaultValues();
 
-            _mockUnitOfWork.EmployeeRepository.GetByIdAsync(employee.Id).Returns(employee);
+            _mockUnitOfWork
+                .EmployeeRepository
+                .GetByIdAsync(employee.Id)
+                .Returns(employee);
 
             var employeeService = new EmployeeService(_mockMapper, _mockUnitOfWork);
 
