@@ -11,11 +11,15 @@ namespace SSTHub.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-             
-        public EmployeeService(IMapper mapper, IUnitOfWork unitOfWork)
+        private readonly IDateTimeService _dateTimeService;
+
+        public EmployeeService(IMapper mapper,
+            IUnitOfWork unitOfWork,
+            IDateTimeService dateTimeService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<ImmutableList<EmployeeListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
@@ -42,7 +46,7 @@ namespace SSTHub.Application.Services
         {
             var employee = _mapper.Map<Employee>(createViewModel);
             employee.IsActive = true;
-            employee.CreatedAt = DateTime.UtcNow;
+            employee.CreatedAt = _dateTimeService.GetDateTimeNow();
 
             await _unitOfWork.EmployeeRepository.CreateAsync(employee);
             await _unitOfWork.SaveChangesAsync();

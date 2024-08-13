@@ -12,11 +12,15 @@ namespace SSTHub.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDateTimeService _dateTimeService;
 
-        public EventService(IMapper mapper, IUnitOfWork unitOfWork)
+        public EventService(IMapper mapper,
+            IUnitOfWork unitOfWork,
+            IDateTimeService dateTimeService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<ImmutableList<EventListItemViewModel>> GetByHubIdAsync(int hubId)
@@ -40,7 +44,7 @@ namespace SSTHub.Application.Services
         public async Task<int> CreateAsync(EventCreateViewModel createViewModel)
         {
             var @event = _mapper.Map<Event>(createViewModel);
-            @event.CreatedAt = DateTime.Now;
+            @event.CreatedAt = _dateTimeService.GetDateTimeNow();
             @event.Status = EventStatuses.Created;
 
             await _unitOfWork.EventRepository.CreateAsync(@event);

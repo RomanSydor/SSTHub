@@ -11,17 +11,21 @@ namespace SSTHub.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IDateTimeService _dateTimeService;
 
-        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper) 
+        public CustomerService(IUnitOfWork unitOfWork,
+            IMapper mapper,
+            IDateTimeService dateTimeService) 
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<int> CreateAsync(CustomerCreateViewModel createViewModel)
         {
             var customer = _mapper.Map<Customer>(createViewModel);
-            customer.CreatedAt = DateTime.Now; 
+            customer.CreatedAt = _dateTimeService.GetDateTimeNow(); 
 
             await _unitOfWork.CustomerRepository.CreateAsync(customer);
             await _unitOfWork.SaveChangesAsync();

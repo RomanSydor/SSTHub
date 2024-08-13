@@ -10,18 +10,22 @@ namespace SSTHub.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDateTimeService _dateTimeService;
 
-        public OrganizationService(IMapper mapper, IUnitOfWork unitOfWork)
+        public OrganizationService(IMapper mapper,
+            IUnitOfWork unitOfWork,
+            IDateTimeService dateTimeService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<int> CreateAsync(OrganizationCreateViewModel createViewModel)
         {
             var organization = _mapper.Map<Organization>(createViewModel);
             organization.IsActive = true;
-            organization.CreatedAt = DateTime.Now;
+            organization.CreatedAt = _dateTimeService.GetDateTimeNow();
 
             await _unitOfWork.OrganizationRepositiry.CreateAsync(organization);
             await _unitOfWork.SaveChangesAsync();

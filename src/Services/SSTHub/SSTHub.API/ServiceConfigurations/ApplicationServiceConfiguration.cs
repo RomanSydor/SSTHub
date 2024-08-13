@@ -1,4 +1,5 @@
-﻿using SSTHub.Application.Services;
+﻿using SSTHub.Application.Infrastructure;
+using SSTHub.Application.Services;
 using SSTHub.Domain.Interfaces;
 
 namespace SSTHub.API.ServiceConfigurations
@@ -13,6 +14,7 @@ namespace SSTHub.API.ServiceConfigurations
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IDateTimeService, DateTimeService>();
         }
     }
 }

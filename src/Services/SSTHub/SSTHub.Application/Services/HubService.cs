@@ -11,18 +11,22 @@ namespace SSTHub.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDateTimeService _dateTimeService;
 
-        public HubService(IMapper mapper, IUnitOfWork unitOfWork)
+        public HubService(IMapper mapper,
+            IUnitOfWork unitOfWork,
+            IDateTimeService dateTimeService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<int> CreateAsync(HubCreateViewModel createViewModel)
         {
             var hub = _mapper.Map<Hub>(createViewModel);
             hub.IsActive = true;
-            hub.CreatedAt = DateTime.UtcNow;
+            hub.CreatedAt = _dateTimeService.GetDateTimeNow();
 
             await _unitOfWork.HubRepository.CreateAsync(hub);
             await _unitOfWork.SaveChangesAsync();

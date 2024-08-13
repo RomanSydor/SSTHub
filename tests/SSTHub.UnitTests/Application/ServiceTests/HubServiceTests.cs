@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NSubstitute;
 using SSTHub.Application.Services;
+using SSTHub.Domain.Interfaces;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.UnitTests.Builders;
 
@@ -10,6 +11,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
     {
         private readonly IUnitOfWork _mockUnitOfWork = Substitute.For<IUnitOfWork>();
         private readonly IMapper _mockMapper = Substitute.For<IMapper>();
+        private readonly IDateTimeService _mockDateTimeService = Substitute.For<IDateTimeService>();
         private readonly HubBuilder _hubBuilder = new();
 
         [Fact]
@@ -23,7 +25,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
                 .GetByIdAsync(hub.Id)
                 .Returns(hub);
 
-            var hubService = new HubService(_mockMapper, _mockUnitOfWork);
+            var hubService = new HubService(_mockMapper, _mockUnitOfWork, _mockDateTimeService);
             //Act
             await hubService.ChangeActiveStatusAsync(1);
 

@@ -11,11 +11,15 @@ namespace SSTHub.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDateTimeService _dateTimeService;
 
-        public ServiceService(IMapper mapper, IUnitOfWork unitOfWork)
+        public ServiceService(IMapper mapper,
+            IUnitOfWork unitOfWork,
+            IDateTimeService dateTimeService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task ChangeActiveStatusAsync(int id)
@@ -30,7 +34,7 @@ namespace SSTHub.Application.Services
         {
             var service = _mapper.Map<Service>(createViewModel);
             service.IsActive = true;
-            service.CreatedAt = DateTime.UtcNow;
+            service.CreatedAt = _dateTimeService.GetDateTimeNow();
 
             await _unitOfWork.ServiceRepository.CreateAsync(service);
             await _unitOfWork.SaveChangesAsync();

@@ -18,6 +18,6 @@ namespace SSTHub.Domain.ViewModels.Employee
         [Required]
         public Roles Role { get; set; }
         [Required]
-        public int HubId { get; set; }
+        public int OrganizationId { get; set; }
     }
 }
