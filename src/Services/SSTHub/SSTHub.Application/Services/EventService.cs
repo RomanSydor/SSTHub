@@ -58,7 +58,6 @@ namespace SSTHub.Application.Services
             @event.EmployeeId = editItemViewModel.EmployeeId;
             @event.ServiceId = editItemViewModel.ServiceId;
 
-            _unitOfWork.EventRepository.Update(@event);
             await _unitOfWork.SaveChangesAsync();
         }
     }

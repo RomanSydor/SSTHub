@@ -40,7 +40,6 @@ namespace SSTHub.Application.Services
             var organization = await _unitOfWork.OrganizationRepositiry.GetByIdAsync(id);
             organization.Name = editItemViewModel.Name;
 
-            _unitOfWork.OrganizationRepositiry.Update(organization);
             await _unitOfWork.SaveChangesAsync();
         }
     }

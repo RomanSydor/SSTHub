@@ -20,11 +20,6 @@ namespace SSTHub.Infrastucture.Repositories
             await _sSTHubDbContext.AddAsync(employee);
         }
 
-        public void Update(Employee employee)
-        {
-            _sSTHubDbContext.Update(employee);
-        }
-
         public async Task<Employee> GetByIdAsync(int id)
         {
             var employee = await _sSTHubDbContext

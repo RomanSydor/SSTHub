@@ -41,7 +41,6 @@ namespace SSTHub.Application.Services
             var hub = await _unitOfWork.HubRepository.GetByIdAsync(id);
             hub.Name = editItemViewModel.Name;
 
-            _unitOfWork.HubRepository.Update(hub);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -50,7 +49,6 @@ namespace SSTHub.Application.Services
             var hub = await _unitOfWork.HubRepository.GetByIdAsync(id);
             hub.IsActive = !hub.IsActive;
 
-            _unitOfWork.HubRepository.Update(hub);
             await _unitOfWork.SaveChangesAsync();
         }
 

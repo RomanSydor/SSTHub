@@ -19,11 +19,6 @@ namespace SSTHub.Infrastucture.Repositories
             await _sSTHubDbContext.AddAsync(@event);
         }
 
-        public void Update(Event @event)
-        {
-            _sSTHubDbContext.Update(@event);
-        }
-
         public async Task<ImmutableList<Event>> GetByHubIdAsync(int hubId)
         {
             var events = await _sSTHubDbContext

@@ -19,11 +19,6 @@ namespace SSTHub.Infrastucture.Repositories
             await _sSTHubDbContext.AddAsync(organization);
         }
 
-        public void Update(Organization organization)
-        {
-            _sSTHubDbContext.Update(organization);
-        }
-
         public async Task<Organization> GetByIdAsync(int id)
         {
             var organization = await _sSTHubDbContext.

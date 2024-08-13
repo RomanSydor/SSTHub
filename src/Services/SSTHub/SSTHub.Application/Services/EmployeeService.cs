@@ -35,7 +35,6 @@ namespace SSTHub.Application.Services
             var employee = await _unitOfWork.EmployeeRepository.GetByIdAsync(id);
             employee.IsActive = !employee.IsActive;
 
-            _unitOfWork.EmployeeRepository.Update(employee);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -58,7 +57,6 @@ namespace SSTHub.Application.Services
             employee.LastName = editItemViewModel.LastName;
             employee.Phone = editItemViewModel.Phone;
 
-            _unitOfWork.EmployeeRepository.Update(employee);
             await _unitOfWork.SaveChangesAsync();
         }
     }

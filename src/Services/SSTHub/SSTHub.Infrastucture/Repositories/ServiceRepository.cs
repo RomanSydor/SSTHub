@@ -20,11 +20,6 @@ namespace SSTHub.Infrastucture.Repositories
             await _sSTHubDbContext.AddAsync(service);
         }
 
-        public void Update(Service service)
-        {
-            _sSTHubDbContext.Update(service);
-        }
-
         public async Task<ImmutableList<Service>> GetByEmployeeIdAsync(int employeeId)
         {
             var serviceIds = await _sSTHubDbContext.Set<Dictionary<string, object>>("EmployeeService")

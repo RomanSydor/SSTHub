@@ -6,7 +6,6 @@ namespace SSTHub.Domain.Interfaces
     public interface IHubRepository
     {
         Task CreateAsync(Hub hub);
-        void Update(Hub hub);
         Task<Hub> GetByIdAsync(int id);
         Task<ImmutableList<Hub>> GetByOrganizationIdAsync(int organizationId);
 

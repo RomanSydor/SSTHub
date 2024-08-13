@@ -23,7 +23,6 @@ namespace SSTHub.Application.Services
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
             service.IsActive = !service.IsActive;
 
-            _unitOfWork.ServiceRepository.Update(service);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -46,7 +45,6 @@ namespace SSTHub.Application.Services
             service.DurationInMinutes = editItemViewModel.DurationInMinutes;
             service.Name = editItemViewModel.Name;
 
-            _unitOfWork.ServiceRepository.Update(service);
             await _unitOfWork.SaveChangesAsync();
         }
 
