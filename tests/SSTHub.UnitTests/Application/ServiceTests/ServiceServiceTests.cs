@@ -18,7 +18,8 @@ namespace SSTHub.UnitTests.Application.ServiceTests
         public async Task ShouldChangeServiceIsActivePropertyAsync()
         {
             //Arrange
-            var service = _serviceBuilder.WithDefaultValues();
+            var id = 1;
+            var service = _serviceBuilder.WithId(id);
 
             _mockUnitOfWork
                 .ServiceRepository
@@ -27,7 +28,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
 
             var serviceService = new ServiceService(_mockMapper, _mockUnitOfWork, _mockDateTimeService);
             //Act
-            await serviceService.ChangeActiveStatusAsync(1);
+            await serviceService.ChangeActiveStatusAsync(id);
 
             //Assert
             Assert.True(service.IsActive, "IsActive property is not chenged");

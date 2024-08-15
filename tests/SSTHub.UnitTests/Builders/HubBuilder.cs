@@ -6,7 +6,7 @@ namespace SSTHub.UnitTests.Builders
     {
         private Hub _hub;
 
-        public int Id => 1;
+        public int Id => 0;
         public bool IsActive => false;
         public DateTime CreatedAt => new(2024, 1, 1);
         public string Name => "TestHub";
@@ -28,6 +28,18 @@ namespace SSTHub.UnitTests.Builders
                 OrganizationId = OrganizationId,
             };
 
+            return _hub;
+        }
+
+        public Hub WithId(int id)
+        {
+            _hub.Id = id;
+            return _hub;
+        }
+
+        public Hub WithOrganizationId(int organizationId)
+        {
+            _hub.OrganizationId = organizationId;
             return _hub;
         }
     }

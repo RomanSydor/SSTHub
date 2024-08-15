@@ -18,7 +18,8 @@ namespace SSTHub.UnitTests.Application.ServiceTests
         public async Task ShouldChangeEmployeeIsActivePropertyAsync()
         {
             //Arrange
-            var employee = _employeeBuilder.WithDefaultValues();
+            var id = 1;
+            var employee = _employeeBuilder.WithId(id);
 
             _mockUnitOfWork
                 .EmployeeRepository
@@ -28,7 +29,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
             var employeeService = new EmployeeService(_mockMapper, _mockUnitOfWork, _mockDateTimeService);
 
             //Act
-            await employeeService.ChangeActiveStatusAsync(1);
+            await employeeService.ChangeActiveStatusAsync(id);
 
             //Assert
             Assert.True(employee.IsActive, "IsActive property is not chenged");

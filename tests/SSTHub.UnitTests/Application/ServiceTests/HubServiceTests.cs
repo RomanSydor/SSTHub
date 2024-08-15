@@ -18,7 +18,8 @@ namespace SSTHub.UnitTests.Application.ServiceTests
         public async Task ShouldChangeHubIsActivePropertyAsync()
         {
             //Arrange
-            var hub = _hubBuilder.WithDefaultValues();
+            var id = 1;
+            var hub = _hubBuilder.WithId(id);
 
             _mockUnitOfWork
                 .HubRepository
@@ -27,7 +28,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
 
             var hubService = new HubService(_mockMapper, _mockUnitOfWork, _mockDateTimeService);
             //Act
-            await hubService.ChangeActiveStatusAsync(1);
+            await hubService.ChangeActiveStatusAsync(id);
 
             //Assert
             Assert.True(hub.IsActive, "IsActive property is not chenged");

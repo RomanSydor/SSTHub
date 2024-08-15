@@ -6,7 +6,7 @@ namespace SSTHub.UnitTests.Builders
     {
         private Service _service;
 
-        public int Id => 1;
+        public int Id => 0;
         public bool IsActive => false;
         public DateTime CreatedAt => new(2024, 1, 1);
         public string Name => "TestService";
@@ -30,6 +30,12 @@ namespace SSTHub.UnitTests.Builders
                 Price = Price,
             };
 
+            return _service;
+        }
+
+        public Service WithId(int id)
+        {
+            _service.Id = id;
             return _service;
         }
     }

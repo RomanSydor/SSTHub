@@ -7,7 +7,7 @@ namespace SSTHub.UnitTests.Builders
     {
         private Employee _employee;
 
-        public int Id => 1;
+        public int Id => 0;
         public bool IsActive => false;
         public DateTime CreatedAt => new(2024, 1, 1);
         public string FirstName => "TestName";
@@ -35,6 +35,18 @@ namespace SSTHub.UnitTests.Builders
                 OrganizationId = OrganizationId,
             };
 
+            return _employee;
+        }
+
+        public Employee WithId(int id)
+        {
+            _employee.Id = id;
+            return _employee;
+        }
+
+        public Employee WithOrganizationId(int id) 
+        {
+            _employee.OrganizationId = id;
             return _employee;
         }
 
