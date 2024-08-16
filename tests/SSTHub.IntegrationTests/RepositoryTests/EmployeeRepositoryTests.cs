@@ -46,15 +46,13 @@ namespace SSTHub.IntegrationTests.RepositoryTests
             var employee1 = _employeeBuilder.WithDefaultValues();
             var employee2 = _employeeBuilder.WithDefaultValues();
             var employee3 = _employeeBuilder.WithDefaultValues();
-            var employee4 = _employeeBuilder.WithDefaultValues();
 
             await _sSTHubDbContext.AddRangeAsync(organization1, organization2);
-            await _sSTHubDbContext.AddRangeAsync(employee1, employee2, employee3, employee4);
+            await _sSTHubDbContext.AddRangeAsync(employee1, employee2, employee3);
 
             organization1.Employees.Add(employee1); 
             organization1.Employees.Add(employee2); 
-            organization1.Employees.Add(employee3); 
-            organization2.Employees.Add(employee4); 
+            organization2.Employees.Add(employee3); 
             
             await _sSTHubDbContext.SaveChangesAsync();
 
@@ -63,7 +61,7 @@ namespace SSTHub.IntegrationTests.RepositoryTests
             var organization2Employees = await _employeeRepository.GetByOrganizationIdAsync(organization2.Id);
 
             //Assert
-            Assert.Equal(3, organization1Employees.Count);
+            Assert.Equal(2, organization1Employees.Count);
             Assert.Single(organization2Employees);
         }
     }

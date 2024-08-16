@@ -11,6 +11,7 @@ namespace SSTHub.UnitTests.Builders
         public DateTime CreatedAt => new(2024, 1, 1);
         public string Name => "TestHub";
         public int OrganizationId => 0;
+        public List<Event> Events => new();
 
         public HubBuilder()
         {
@@ -26,6 +27,7 @@ namespace SSTHub.UnitTests.Builders
                 CreatedAt = CreatedAt,
                 Name = Name, 
                 OrganizationId = OrganizationId,
+                Events = Events,
             };
 
             return _hub;

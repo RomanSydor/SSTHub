@@ -46,15 +46,13 @@ namespace SSTHub.IntegrationTests.RepositoryTests
             var hub1 = _hubBuilder.WithDefaultValues();
             var hub2 = _hubBuilder.WithDefaultValues();
             var hub3 = _hubBuilder.WithDefaultValues();
-            var hub4 = _hubBuilder.WithDefaultValues();
 
             await _sSTHubDbContext.AddRangeAsync(organization1, organization2);
-            await _sSTHubDbContext.AddRangeAsync(hub1, hub2, hub3, hub4);
+            await _sSTHubDbContext.AddRangeAsync(hub1, hub2, hub3);
 
             organization1.Hubs.Add(hub1);
             organization1.Hubs.Add(hub2);
-            organization1.Hubs.Add(hub3);
-            organization2.Hubs.Add(hub4);
+            organization2.Hubs.Add(hub3);
 
             await _sSTHubDbContext.SaveChangesAsync();
             
@@ -63,7 +61,7 @@ namespace SSTHub.IntegrationTests.RepositoryTests
             var organization2Hubs = await _hubRepository.GetByOrganizationIdAsync(organization2.Id);
 
             //Assert
-            Assert.Equal(3, organization1Hubs.Count);
+            Assert.Equal(2, organization1Hubs.Count);
             Assert.Single(organization2Hubs);
         }
     }
