@@ -35,8 +35,9 @@ namespace SSTHub.UnitTests.Builders
 
         public Service WithId(int id)
         {
-            _service.Id = id;
-            return _service;
+            var service = WithDefaultValues();
+            service.Id = id;
+            return service;
         }
     }
 }

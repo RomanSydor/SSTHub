@@ -10,7 +10,7 @@ namespace SSTHub.UnitTests.Builders
         public bool IsActive => false;
         public DateTime CreatedAt => new(2024, 1, 1);
         public string Name => "TestHub";
-        public int OrganizationId => 1;
+        public int OrganizationId => 0;
 
         public HubBuilder()
         {
@@ -33,14 +33,9 @@ namespace SSTHub.UnitTests.Builders
 
         public Hub WithId(int id)
         {
-            _hub.Id = id;
-            return _hub;
-        }
-
-        public Hub WithOrganizationId(int organizationId)
-        {
-            _hub.OrganizationId = organizationId;
-            return _hub;
+            var hub = WithDefaultValues();
+            hub.Id = id;
+            return hub;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using SSTHub.Domain.Entities;
-using SSTHub.Domain.Enums;
 
 namespace SSTHub.UnitTests.Builders
 {
@@ -14,7 +13,8 @@ namespace SSTHub.UnitTests.Builders
         public string LastName => "TestLN";
         public string Email => "test@test.com";
         public string Phone => "0993254565";
-        public int OrganizationId => 1;
+        public int OrganizationId => 0;
+        public List<Service> Services => new();
 
         public EmployeeBuilder()
         {
@@ -33,6 +33,7 @@ namespace SSTHub.UnitTests.Builders
                 Email = Email,
                 Phone = Phone,
                 OrganizationId = OrganizationId,
+                Services = Services,
             };
 
             return _employee;
@@ -40,32 +41,9 @@ namespace SSTHub.UnitTests.Builders
 
         public Employee WithId(int id)
         {
-            _employee.Id = id;
-            return _employee;
-        }
-
-        public Employee WithOrganizationId(int id) 
-        {
-            _employee.OrganizationId = id;
-            return _employee;
-        }
-
-        public Employee OrganizationAdminWithDefaultValues()
-        {
-            _employee.Role = Roles.OrganizationAdmin;
-            return _employee;
-        }
-        
-        public Employee HubAdminWithDefaultValues()
-        {
-            _employee.Role = Roles.HubAdmin;
-            return _employee;
-        }
-
-        public Employee SpecialistWithDefaultValues()
-        {
-            _employee.Role = Roles.Specialist;
-            return _employee;
+            var employee = WithDefaultValues();
+            employee.Id = id;
+            return employee;
         }
     }
 }
