@@ -4,9 +4,6 @@ namespace SSTHub.Application.Infrastructure
 {
     public class DateTimeService : IDateTimeService
     {
-        public DateTime GetDateTimeNow()
-        {
-            return DateTime.Now;
-        }
+        public DateTime GetDateTimeNow() => DateTime.Now;
     }
 }
