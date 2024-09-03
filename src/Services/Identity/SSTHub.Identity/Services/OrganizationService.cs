@@ -7,13 +7,13 @@ using System.Text;
 
 namespace SSTHub.Identity.Services
 {
-    public class HubService : IHubService
+    public class OrganizationService : IOrganizationService
     {
         private readonly IOptions<AppSettings> _settings;
         private readonly HttpClient _httpClient;
         private readonly string _hubBaseUrl;
 
-        public HubService(IOptions<AppSettings> settings, HttpClient httpClient)
+        public OrganizationService(IOptions<AppSettings> settings, HttpClient httpClient)
         {
             _httpClient = httpClient;
             _settings = settings;
@@ -21,7 +21,7 @@ namespace SSTHub.Identity.Services
             _hubBaseUrl = $"{_settings.Value.HubUrl}";
         }
 
-        public async Task<int> CreateAsync(HubCreateDto createDto)
+        public async Task<int> CreateAsync(OrganizationCreateDto createDto)
         {
             var uri = API.Hub.CreateHub(_hubBaseUrl);
 
@@ -34,8 +34,8 @@ namespace SSTHub.Identity.Services
             var response = await _httpClient.PostAsync(uri, jsonContent);
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            var hubId = int.Parse(jsonResponse);
-            return hubId;
+            var organizationId = int.Parse(jsonResponse);
+            return organizationId;
         }
     }
 }

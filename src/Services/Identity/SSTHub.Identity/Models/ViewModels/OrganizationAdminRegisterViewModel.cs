@@ -2,7 +2,7 @@
 
 namespace SSTHub.Identity.Models.ViewModels
 {
-    public class EmployeeRegisterViewModel
+    public class OrganizationAdminRegisterViewModel
     {
         [Required]
         public string FirstName { get; set; }
@@ -17,6 +17,6 @@ namespace SSTHub.Identity.Models.ViewModels
         [Required]
         public string Password { get; set; }
         [Required]
-        public int HubId { get; set; }
+        public string OrganizationName { get; set; }
     }
 }

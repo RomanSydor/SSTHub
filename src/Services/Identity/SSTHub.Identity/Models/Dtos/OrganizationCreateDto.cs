@@ -2,7 +2,7 @@
 
 namespace SSTHub.Identity.Models.Dtos
 {
-    public class HubCreateDto
+    public class OrganizationCreateDto
     {
         [Required]
         public string Name { get; set; }

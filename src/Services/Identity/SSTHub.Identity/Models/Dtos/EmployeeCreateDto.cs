@@ -18,6 +18,6 @@ namespace SSTHub.Identity.Models.Dtos
         [Required]
         public Roles Role { get; set; }
         [Required]
-        public int HubId { get; set; }
+        public int OrganizationId { get; set; }
     }
 }

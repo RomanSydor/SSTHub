@@ -8,7 +8,7 @@ namespace SSTHub.Identity.ServiceConfiguration
         public static void AddHttpClients(this IServiceCollection services)
         {
             services.AddHttpClient<IEmployeeService, EmployeeService>();
-            services.AddHttpClient<IHubService, HubService>();
+            services.AddHttpClient<IOrganizationService, OrganizationService>();
         }
     }
 }

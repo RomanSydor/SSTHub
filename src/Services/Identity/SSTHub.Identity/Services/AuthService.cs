@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Models.Entities;
-using SSTHub.Identity.Models.Enums;
 using SSTHub.Identity.Services.Interfaces;
 using SSTHub.Identity.Services.ResponseDtos.Auth;
 
@@ -40,16 +39,8 @@ namespace SSTHub.Identity.Services
                 return new UserRegisterResponseDto { Succeeded = false, ErrorMessage = errors };
             }
 
-            IdentityResult assignRole;
-            if (dto.Role == Roles.HubAdmin)
-            {
-                assignRole = await _userManager.AddToRoleAsync(user, "HUBADMIN");
-            }
-            else
-            {
-                assignRole = await _userManager.AddToRoleAsync(user, "EMPLOYEE");
-            }
-
+            var assignRole = await _userManager.AddToRoleAsync(user, "ORGANIZATIONADMIN");
+            
             if (!assignRole.Succeeded)
             {
                 var errorList = assignRole.Errors.ToList();

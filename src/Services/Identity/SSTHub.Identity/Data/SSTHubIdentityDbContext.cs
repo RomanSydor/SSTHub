@@ -19,14 +19,8 @@ namespace SSTHub.Identity.Data
                     new IdentityRole<int>
                     {
                         Id = 1,
-                        Name = "HubAdmin",
-                        NormalizedName = "HUBADMIN",
-                    },
-                    new IdentityRole<int>
-                    {
-                        Id = 2,
-                        Name = "Employee",
-                        NormalizedName = "EMPLOYEE",
+                        Name = "OrganizationAdmin",
+                        NormalizedName = "ORGANIZATIONADMIN",
                     }
                 );
 

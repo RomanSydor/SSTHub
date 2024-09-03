@@ -6,31 +6,31 @@ using SSTHub.Identity.Models.Enums;
 using SSTHub.Identity.Models.ViewModels;
 using SSTHub.Identity.Services.Interfaces;
 
-namespace SSTHub.Identity.Controllers.API
+namespace SSTHub.Identity.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IHubService _hubService;
+        private readonly IOrganizationService _organizationService;
         private readonly IEmployeeService _employeeService;
         private readonly IAuthService _authService;
         private readonly IPublishEndpoint _publishEndpoint;
 
-        public AuthController(IHubService hubService,
+        public AuthController(IOrganizationService organizationService,
             IEmployeeService employeeService,
             IAuthService authService,
             IPublishEndpoint publishEndpoint)
         {
-            _hubService = hubService;
+            _organizationService = organizationService;
             _employeeService = employeeService;
             _authService = authService;
             _publishEndpoint = publishEndpoint;
         }
 
         [HttpPost]
-        [Route("RegisterAdmin")]
-        public async Task<IActionResult> RegisterAdmin(HubAdminRegisterViewModel model)
+        [Route("RegisterOrganization")]
+        public async Task<IActionResult> RegisterOrganization(OrganizationAdminRegisterViewModel model)
         {
             try
             {
@@ -40,15 +40,15 @@ namespace SSTHub.Identity.Controllers.API
                     LastName = model.LastName,
                     Email = model.Email,
                     Password = model.Password,
-                    Role = Roles.HubAdmin,
+                    Role = Roles.OrganizationAdmin,
                 });
 
                 if (!userCreate.Succeeded)
                     return StatusCode(StatusCodes.Status400BadRequest, userCreate.ErrorMessage);
 
-                var hubId = await _hubService.CreateAsync(new HubCreateDto
+                var organizationId = await _organizationService.CreateAsync(new OrganizationCreateDto
                 {
-                    Name = model.HubName,
+                    Name = model.OrganizationName,
                 });
 
                 await _employeeService.CreateAsync(new EmployeeCreateDto
@@ -57,8 +57,8 @@ namespace SSTHub.Identity.Controllers.API
                     LastName = model.LastName,
                     Email = model.Email,
                     Phone = model.Phone,
-                    Role = Roles.HubAdmin,
-                    HubId = hubId,
+                    Role = Roles.OrganizationAdmin,
+                    OrganizationId = organizationId,
                 });
 
                 //TODO: add confirm email functionality   
@@ -75,50 +75,6 @@ namespace SSTHub.Identity.Controllers.API
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }   
-        }
-
-        [HttpPost]
-        [Route("RegisterEmployee")]
-        public async Task<IActionResult> RegisterEmployee(EmployeeRegisterViewModel model)
-        {
-            try
-            {
-                var userCreate = await _authService.UserCreateAsync(new UserCreateDto
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    Password = model.Password,
-                    Role = Roles.Employee,
-                });
-
-                if (!userCreate.Succeeded)
-                    return StatusCode(StatusCodes.Status400BadRequest, userCreate.ErrorMessage);
-
-                await _employeeService.CreateAsync(new EmployeeCreateDto
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    Phone = model.Phone,
-                    Role = Roles.Employee,
-                    HubId = model.HubId,
-                });
-
-                //TODO: add confirm email functionality   
-                await _publishEndpoint.Publish<IEmailMessage>(new
-                {
-                    Receiver = model.Email,
-                    Subject = "Account created, confirm email",
-                    Body = ""
-                });
-
-                return StatusCode(StatusCodes.Status200OK);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
         }
     }
 }
