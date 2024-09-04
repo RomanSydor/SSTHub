@@ -1,3 +1,4 @@
+using SSTHub.Identity.Middlewares;
 using SSTHub.Identity.ServiceConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddJwtToken(builder.Configuration);
 builder.Services.AddHttpClients();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddMassTransit(builder.Configuration);
+builder.Services.AddMapper(builder.Configuration);
 
 var app = builder.Build();
 
@@ -25,9 +27,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapControllers();
+app.UseExceptionHandleMiddleware();
 
 app.Run();

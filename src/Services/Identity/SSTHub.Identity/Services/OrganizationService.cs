@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using SSTHub.Identity.Infrastructure;
-using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Services.Interfaces;
 using System.Text.Json;
 using System.Text;
+using SSTHub.Identity.Models.Dtos;
 
 namespace SSTHub.Identity.Services
 {
@@ -11,22 +11,22 @@ namespace SSTHub.Identity.Services
     {
         private readonly IOptions<AppSettings> _settings;
         private readonly HttpClient _httpClient;
-        private readonly string _hubBaseUrl;
+        private readonly string _organizationBaseUrl;
 
         public OrganizationService(IOptions<AppSettings> settings, HttpClient httpClient)
         {
             _httpClient = httpClient;
             _settings = settings;
 
-            _hubBaseUrl = $"{_settings.Value.HubUrl}";
+            _organizationBaseUrl = $"{_settings.Value.OrganizatoinUrl}";
         }
 
-        public async Task<int> CreateAsync(OrganizationCreateDto createDto)
+        public async Task<int> CreateAsync(OrganizationCreateDto dto)
         {
-            var uri = API.Hub.CreateHub(_hubBaseUrl);
+            var uri = API.Organization.CreateOrganization(_organizationBaseUrl);
 
             using StringContent jsonContent = new(
-                JsonSerializer.Serialize(createDto),
+                JsonSerializer.Serialize(dto),
                 Encoding.UTF8,
                 "application/json"
             );

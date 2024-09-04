@@ -4,7 +4,7 @@ namespace SSTHub.Identity.Services.Interfaces
 {
     public interface IOrganizationService
     {
-        Task<int> CreateAsync(OrganizationCreateDto createDto);
+        Task<int> CreateAsync(OrganizationCreateDto dto);
 
     }
 }

@@ -2,9 +2,9 @@
 {
     public static class API
     {
-        public static class Hub
+        public static class Organization
         {
-            public static string CreateHub(string baseUri) => $"{baseUri}";
+            public static string CreateOrganization(string baseUri) => $"{baseUri}";
         }
 
         public static class Employee

@@ -15,8 +15,7 @@
       "Projects": {
         "SSTHub.Identity": {},
         "SSTHub.API": {},
-        "SSTHub.EmailSender": {},
-        "WebAdminSPA": {}
+        "SSTHub.EmailSender": {}
       }
     }
   }

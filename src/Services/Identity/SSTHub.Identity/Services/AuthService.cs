@@ -1,54 +1,64 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using MassTransit;
+using Microsoft.AspNetCore.Identity;
+using SSTHub.Common.RabbitMQContracts;
 using SSTHub.Identity.Models.Dtos;
 using SSTHub.Identity.Models.Entities;
+using SSTHub.Identity.Models.Enums;
+using SSTHub.Identity.Models.ViewModels;
 using SSTHub.Identity.Services.Interfaces;
-using SSTHub.Identity.Services.ResponseDtos.Auth;
 
 namespace SSTHub.Identity.Services
 {
     public class AuthService : IAuthService
     {
         private readonly UserManager<EmployeeUser> _userManager;
+        private readonly IMapper _mapper;
+        private readonly IOrganizationService _organizationService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public AuthService(UserManager<EmployeeUser> userManager)
+        public AuthService(UserManager<EmployeeUser> userManager,
+            IMapper mapper,
+            IOrganizationService organizationService,
+            IEmployeeService employeeService,
+            IPublishEndpoint publishEndpoint)
         {
             _userManager = userManager;
+            _mapper = mapper;
+            _organizationService = organizationService;
+            _employeeService = employeeService;
+            _publishEndpoint = publishEndpoint;
         }
 
-        public async Task<UserRegisterResponseDto> UserCreateAsync(UserCreateDto dto)
+        public async Task OrganizationRegisterAsync(OrganizationRegisterViewModel model)
         {
-            var userExists = await _userManager.FindByEmailAsync(dto.Email);
-            if (userExists != null)
-                return new UserRegisterResponseDto { Succeeded = false, ErrorMessage = "User already exists" };
-
-            var user = new EmployeeUser
-            {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Email = dto.Email,
-                UserName = dto.Email,
-                PhoneNumber = dto.Phone,
-            };
-
-            var addUser = await _userManager.CreateAsync(user, dto.Password);
-
-            if (!addUser.Succeeded)
-            {
-                var errorList = addUser.Errors.ToList();
-                var errors = string.Join(", ", errorList.Select(e => e.Description));
-                return new UserRegisterResponseDto { Succeeded = false, ErrorMessage = errors };
-            }
-
-            var assignRole = await _userManager.AddToRoleAsync(user, "ORGANIZATIONADMIN");
+            var user = _mapper.Map<EmployeeUser>(model);
+            await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user, "ORGANIZATIONADMIN");
             
-            if (!assignRole.Succeeded)
+            var organizationId = await _organizationService.CreateAsync( new OrganizationCreateDto
             {
-                var errorList = assignRole.Errors.ToList();
-                var errors = string.Join(", ", errorList.Select(e => e.Description));
-                return new UserRegisterResponseDto { Succeeded = false, ErrorMessage = errors };
-            }
+                Name = model.OrganizationName,
+            });
 
-            return new UserRegisterResponseDto { Succeeded = true, ErrorMessage = "Created" };
+            await _employeeService.CreateAsync(new EmployeeCreateDto
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                Phone = model.Phone,
+                Role = Roles.OrganizationAdmin,
+                OrganizationId = organizationId,
+            });
+
+            //TODO: add confirm email functionality   
+            await _publishEndpoint.Publish<IEmailMessage>(new
+            {
+                Receiver = model.Email,
+                Subject = "Account created, confirm email",
+                Body = ""
+            });
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SSTHub.Identity.Models.ViewModels
 {
-    public class OrganizationAdminRegisterViewModel
+    public class OrganizationRegisterViewModel
     {
         [Required]
         public string FirstName { get; set; }
