@@ -1,0 +1,64 @@
+﻿@page "/register"
+@using WebIdentityBlazor.Models
+@using WebIdentityBlazor.Services.Interfaces
+@inject IClientIdentityService IdentityService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h3>Register</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="RegisterVM" OnValidSubmit="Register" FormName="create">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="FirstName" class="form-label">First name:</label>
+                <InputText id="FirstName" @bind-Value="RegisterVM.FirstName" class="form-control" />
+                <ValidationMessage For="() => RegisterVM.FirstName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="LastName" class="form-label">Last name:</label>
+                <InputText id="LastName" @bind-Value="RegisterVM.LastName" class="form-control" />
+                <ValidationMessage For="() => RegisterVM.LastName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="OrgName" class="form-label">Organization name:</label>
+                <InputText id="OrgName" @bind-Value="RegisterVM.OrganizationName" class="form-control" />
+                <ValidationMessage For="() => RegisterVM.OrganizationName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email:</label>
+                <InputText id="Email" @bind-Value="RegisterVM.Email" class="form-control" />
+                <ValidationMessage For="() => RegisterVM.Email" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="Phone" class="form-label">Phone:</label>
+                <InputText id="Phone" @bind-Value="RegisterVM.Phone" class="form-control" />
+                <ValidationMessage For="() => RegisterVM.Phone" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password:</label>
+                <InputText id="Password" @bind-Value="RegisterVM.Password" class="form-control" />
+                <ValidationMessage For="() => RegisterVM.Password" class="text-danger" />
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private OrganizationRegisterViewModel RegisterVM { get; set; } = new(); 
+
+    private async Task Register()
+    {
+        if(RegisterVM != null)
+        {
+            await IdentityService.OrganizationRegisterAsync(RegisterVM);
+            NavigationManager.NavigateTo("/");
+        }
+        NavigationManager.NavigateTo("/Error");
+    }
+}

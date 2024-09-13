@@ -15,7 +15,6 @@ builder.Services.AddJwtToken(builder.Configuration);
 builder.Services.AddHttpClients();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddMassTransit(builder.Configuration);
-builder.Services.AddMapper(builder.Configuration);
 
 var app = builder.Build();
 

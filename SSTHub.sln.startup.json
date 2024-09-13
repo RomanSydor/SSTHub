@@ -15,7 +15,8 @@
       "Projects": {
         "SSTHub.Identity": {},
         "SSTHub.API": {},
-        "SSTHub.EmailSender": {}
+        "SSTHub.EmailSender": {},
+        "WebIdentityBlazor": {}
       }
     }
   }
