@@ -8,27 +8,14 @@ namespace SSTHub.API.Controllers.OData
 {
     [Route("api/odata/Events")]
     [ApiController]
-    public class ODataEventController : ControllerBase
+    public class ODataEventController(IEventService _eventService) : ControllerBase
     {
-        private readonly IEventService _eventService;
-
-        public ODataEventController(IEventService eventService)
-        {
-            _eventService = eventService;
-        }
-
         [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
-        public async Task<ImmutableList<EventListItemViewModel>> GetOrganizationId([FromRoute] int organizationId)
-        {
-            return await _eventService.GetByOrganizationIdAsync(organizationId);
-        }
+        public Task<ImmutableList<EventListItemViewModel>> GetOrganizationId([FromRoute] int organizationId) => _eventService.GetByOrganizationIdAsync(organizationId);
 
         [EnableQuery]
         [HttpGet("ByHubId/{hubId}")]
-        public async Task<ImmutableList<EventListItemViewModel>> GetByHubId([FromRoute] int hubId)
-        {
-            return await _eventService.GetByHubIdAsync(hubId);
-        }
+        public Task<ImmutableList<EventListItemViewModel>> GetByHubId([FromRoute] int hubId) => _eventService.GetByHubIdAsync(hubId);
     }
 }

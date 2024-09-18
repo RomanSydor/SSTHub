@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SSTHub.Application\SSTHub.Application.csproj" />
-    <ProjectReference Include="..\SSTHub.Infrastucture\SSTHub.Infrastucture.csproj" />
+    <ProjectReference Include="..\SSTHub.Infrastructure\SSTHub.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,20 +8,10 @@ namespace SSTHub.API.Controllers.OData
 {
     [Route("api/odata/Employees")]
     [ApiController]
-    public class ODataEmployeeController : ControllerBase
+    public class ODataEmployeeController(IEmployeeService _employeeService) : ControllerBase
     {
-        private readonly IEmployeeService _employeeService;
-
-        public ODataEmployeeController(IEmployeeService employeeService)
-        {
-            _employeeService = employeeService;
-        }
-
         [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
-        public async Task<ImmutableList<EmployeeListItemViewModel>> Get([FromRoute] int organizationId)
-        {
-            return await _employeeService.GetByOrganizationIdAsync(organizationId);
-        }
+        public Task<ImmutableList<EmployeeListItemViewModel>> Get([FromRoute] int organizationId) => _employeeService.GetByOrganizationIdAsync(organizationId);
     }
 }

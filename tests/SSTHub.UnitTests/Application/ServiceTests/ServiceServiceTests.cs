@@ -15,7 +15,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
         private readonly ServiceBuilder _serviceBuilder = new();
 
         [Fact]
-        public async Task ShouldChangeServiceIsActivePropertyAsync()
+        public async Task ChangeActiveStatusAsync_ForInactiveService_ChangesStatusToActive()
         {
             //Arrange
             var id = 1;
@@ -31,7 +31,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
             await serviceService.ChangeActiveStatusAsync(id);
 
             //Assert
-            Assert.True(service.IsActive, "IsActive property is not chenged");
+            Assert.True(service.IsActive, "IsActive property is not changed");
         }
     }
 }

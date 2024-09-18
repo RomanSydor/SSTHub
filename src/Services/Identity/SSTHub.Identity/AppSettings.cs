@@ -2,7 +2,7 @@
 {
     public class AppSettings
     {
-        public string OrganizatoinUrl { get; set; }
+        public string OrganizationUrl { get; set; }
         public string EmployeeUrl { get; set; }
     }
 }

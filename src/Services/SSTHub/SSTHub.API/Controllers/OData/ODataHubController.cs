@@ -8,20 +8,10 @@ namespace SSTHub.API.Controllers.OData
 {
     [Route("api/odata/Hubs")]
     [ApiController]
-    public class ODataHubController : ControllerBase
+    public class ODataHubController(IHubService _hubService) : ControllerBase
     {
-        private readonly IHubService _hubService;
-
-        public ODataHubController(IHubService hubSerice)
-        {
-            _hubService = hubSerice;
-        }
-
         [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
-        public async Task<ImmutableList<HubListItemViewModel>> GetByOrganizationId([FromRoute] int organizationId)
-        {
-            return await _hubService.GetByOrganizationIdAsync(organizationId);
-        }
+        public Task<ImmutableList<HubListItemViewModel>> GetByOrganizationId([FromRoute] int organizationId) => _hubService.GetByOrganizationIdAsync(organizationId);
     }
 }

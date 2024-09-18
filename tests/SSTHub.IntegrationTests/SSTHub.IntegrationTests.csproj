@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Services\SSTHub\SSTHub.Infrastucture\SSTHub.Infrastucture.csproj" />
+    <ProjectReference Include="..\..\src\Services\SSTHub\SSTHub.Infrastructure\SSTHub.Infrastructure.csproj" />
     <ProjectReference Include="..\SSTHub.UnitTests\SSTHub.UnitTests.csproj" />
   </ItemGroup>
 

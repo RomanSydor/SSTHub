@@ -6,37 +6,18 @@ namespace SSTHub.API.Controllers
 {
     [Route("api/[controller]s")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeeController(IEmployeeService _employeeService) : ControllerBase
     {
-        private readonly IEmployeeService _employeeService;
-
-        public EmployeeController(IEmployeeService employeeService)
-        {
-            _employeeService = employeeService;
-        }
-
         [HttpGet("{id}")]
-        public async Task<EmployeeDetailsViewModel> GetById([FromRoute] int id)
-        {
-            return await _employeeService.GetByIdAsync(id);
-        }
+        public Task<EmployeeDetailsViewModel> GetById([FromRoute] int id) => _employeeService.GetByIdAsync(id);
 
         [HttpPost]
-        public async Task<int> Create([FromBody] EmployeeCreateViewModel createViewModel)
-        {
-            return await _employeeService.CreateAsync(createViewModel);
-        }
+        public Task<int> Create([FromBody] EmployeeCreateViewModel createViewModel) => _employeeService.CreateAsync(createViewModel);
 
         [HttpPatch("{id}")]
-        public async Task Edit([FromRoute]int id, [FromBody] EmployeeEditItemViewModel editItemViewModel)
-        {
-            await _employeeService.UpdateAsync(id, editItemViewModel);
-        }
+        public Task Edit([FromRoute] int id, [FromBody] EmployeeEditItemViewModel editItemViewModel) => _employeeService.UpdateAsync(id, editItemViewModel);
 
         [HttpPatch("{id}/ActiveStatus")]
-        public async Task ChangeActiveStatus([FromRoute] int id)
-        {
-            await _employeeService.ChangeActiveStatusAsync(id);
-        }
+        public Task ChangeActiveStatus([FromRoute] int id) => _employeeService.ChangeActiveStatusAsync(id);
     }
 }

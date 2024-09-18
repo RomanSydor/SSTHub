@@ -6,20 +6,10 @@ namespace SSTHub.Identity.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController(IAuthService _authService) : ControllerBase
     {
-        private readonly IAuthService _authService;
-
-        public AuthController(IAuthService authService)
-        {
-            _authService = authService;
-        }
-
         [HttpPost]
         [Route("RegisterOrganization")]
-        public async Task RegisterOrganization([FromBody] OrganizationRegisterViewModel model)
-        {
-            await _authService.OrganizationRegisterAsync(model);
-        }
+        public Task RegisterOrganization([FromBody] OrganizationRegisterViewModel model) => _authService.OrganizationRegisterAsync(model);
     }
 }

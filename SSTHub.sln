@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSTHub.API", "src\Services\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSTHub.Domain", "src\Services\SSTHub\SSTHub.Domain\SSTHub.Domain.csproj", "{CD20FCB5-86D2-4701-BCC8-BCB8EF07DF17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSTHub.Infrastucture", "src\Services\SSTHub\SSTHub.Infrastucture\SSTHub.Infrastucture.csproj", "{61847F9B-BF07-4710-9D58-E5F61A53D431}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSTHub.Infrastructure", "src\Services\SSTHub\SSTHub.Infrastructure\SSTHub.Infrastructure.csproj", "{61847F9B-BF07-4710-9D58-E5F61A53D431}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSTHub.Application", "src\Services\SSTHub\SSTHub.Application\SSTHub.Application.csproj", "{7433261B-2F7A-40EE-8322-9DA7E442FA85}"
 EndProject
@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSTHub.UnitTests", "tests\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSTHub.IntegrationTests", "tests\SSTHub.IntegrationTests\SSTHub.IntegrationTests.csproj", "{78513FEC-FC8D-41C8-98F5-5A2016332D38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebIdentityBlazor", "src\WebApps\WebIdentityBlazor\WebIdentityBlazor.csproj", "{B9E7C112-BA4B-4E6C-BBE9-43C969809FDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebIdentityBlazor", "src\WebApps\WebIdentityBlazor\WebIdentityBlazor.csproj", "{B9E7C112-BA4B-4E6C-BBE9-43C969809FDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

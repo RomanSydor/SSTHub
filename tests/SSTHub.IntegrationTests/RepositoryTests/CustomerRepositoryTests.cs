@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SSTHub.Infrastucture.Contexts;
-using SSTHub.Infrastucture.Repositories;
+using SSTHub.Infrastructure.Contexts;
+using SSTHub.Infrastructure.Repositories;
 using SSTHub.UnitTests.Builders;
 
 namespace SSTHub.IntegrationTests.RepositoryTests

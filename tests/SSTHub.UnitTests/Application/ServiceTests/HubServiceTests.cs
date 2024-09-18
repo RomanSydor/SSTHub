@@ -15,7 +15,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
         private readonly HubBuilder _hubBuilder = new();
 
         [Fact]
-        public async Task ShouldChangeHubIsActivePropertyAsync()
+        public async Task ChangeActiveStatusAsync_ForInactiveService_ChangesStatusToActive()
         {
             //Arrange
             var id = 1;
@@ -31,7 +31,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
             await hubService.ChangeActiveStatusAsync(id);
 
             //Assert
-            Assert.True(hub.IsActive, "IsActive property is not chenged");
+            Assert.True(hub.IsActive, "IsActive property is not changed");
         }
     }
 }

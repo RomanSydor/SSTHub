@@ -15,7 +15,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
         private readonly EmployeeBuilder _employeeBuilder = new();
 
         [Fact]
-        public async Task ShouldChangeEmployeeIsActivePropertyAsync()
+        public async Task ChangeActiveStatusAsync_ForInactiveService_ChangesStatusToActive()
         {
             //Arrange
             var id = 1;
@@ -32,7 +32,7 @@ namespace SSTHub.UnitTests.Application.ServiceTests
             await employeeService.ChangeActiveStatusAsync(id);
 
             //Assert
-            Assert.True(employee.IsActive, "IsActive property is not chenged");
+            Assert.True(employee.IsActive, "IsActive property is not changed");
         }
     }
 }

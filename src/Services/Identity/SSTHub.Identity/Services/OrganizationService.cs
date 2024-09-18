@@ -18,7 +18,7 @@ namespace SSTHub.Identity.Services
             _httpClient = httpClient;
             _settings = settings;
 
-            _organizationBaseUrl = $"{_settings.Value.OrganizatoinUrl}";
+            _organizationBaseUrl = $"{_settings.Value.OrganizationUrl}";
         }
 
         public async Task<int> CreateAsync(OrganizationCreateDto dto)

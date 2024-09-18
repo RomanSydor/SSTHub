@@ -8,27 +8,14 @@ namespace SSTHub.API.Controllers.OData
 {
     [Route("api/odata/Customers")]
     [ApiController]
-    public class ODataCustomerController : ControllerBase
+    public class ODataCustomerController(ICustomerService _customerService) : ControllerBase
     {
-        private readonly ICustomerService _customerService;
-
-        public ODataCustomerController(ICustomerService customerService)
-        {
-            _customerService = customerService;
-        }
-
         [EnableQuery]
         [HttpGet("ByOrganizationId/{organizationId}")]
-        public async Task<ImmutableList<CustomerListItemViewModel>> GetOrganizationId([FromRoute] int organizationId)
-        {
-            return await _customerService.GetByOrganizationIdAsync(organizationId);
-        }
+        public Task<ImmutableList<CustomerListItemViewModel>> GetOrganizationId([FromRoute] int organizationId) => _customerService.GetByOrganizationIdAsync(organizationId);
 
         [EnableQuery]
         [HttpGet("ByHubId/{hubId}")]
-        public async Task<ImmutableList<CustomerListItemViewModel>> GetByHubId([FromRoute] int hubId)
-        {
-            return await _customerService.GetByHubIdAsync(hubId);
-        }
+        public Task<ImmutableList<CustomerListItemViewModel>> GetByHubId([FromRoute] int hubId) => _customerService.GetByHubIdAsync(hubId);
     }
 }

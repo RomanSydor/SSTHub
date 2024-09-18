@@ -5,9 +5,9 @@ using Microsoft.OData.ModelBuilder;
 using OData.Swagger.Services;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces.UnitOfWork;
-using SSTHub.Infrastucture.Contexts;
-using SSTHub.Infrastucture.MappingProfiles;
-using SSTHub.Infrastucture.Repositories.UnitOfWork;
+using SSTHub.Infrastructure.Contexts;
+using SSTHub.Infrastructure.MappingProfiles;
+using SSTHub.Infrastructure.Repositories.UnitOfWork;
 
 namespace SSTHub.API.ServiceConfigurations
 {
