@@ -6,15 +6,8 @@ using System.Collections.Immutable;
 
 namespace SSTHub.Infrastructure.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository(SSTHubDbContext _sSTHubDbContext) : IEmployeeRepository
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
-
-        public EmployeeRepository(SSTHubDbContext sSTHubDbContext)
-        {
-            _sSTHubDbContext = sSTHubDbContext;
-        }
-
         public async Task CreateAsync(Employee employee)
         {
             await _sSTHubDbContext.AddAsync(employee);

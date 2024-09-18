@@ -5,15 +5,8 @@ using SSTHub.Infrastructure.Contexts;
 
 namespace SSTHub.Infrastructure.Repositories
 {
-    public class OrganizationRepository : IOrganizationRepositiry
+    public class OrganizationRepository(SSTHubDbContext _sSTHubDbContext) : IOrganizationRepository
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
-
-        public OrganizationRepository(SSTHubDbContext sSTHubDbContext)
-        {
-            _sSTHubDbContext = sSTHubDbContext;
-        }
-
         public async Task CreateAsync(Organization organization)
         {
             await _sSTHubDbContext.AddAsync(organization);

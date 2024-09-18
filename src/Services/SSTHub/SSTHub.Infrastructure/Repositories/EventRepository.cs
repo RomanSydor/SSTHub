@@ -6,14 +6,8 @@ using System.Collections.Immutable;
 
 namespace SSTHub.Infrastructure.Repositories
 {
-    public class EventRepository : IEventRepository
+    public class EventRepository(SSTHubDbContext _sSTHubDbContext) : IEventRepository
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
-        public EventRepository(SSTHubDbContext sSTHubDbContext)
-        {
-            _sSTHubDbContext = sSTHubDbContext;
-        }
-
         public async Task CreateAsync(Event @event)
         {
             await _sSTHubDbContext.AddAsync(@event);

@@ -9,24 +9,11 @@ using SSTHub.Identity.Services.Interfaces;
 
 namespace SSTHub.Identity.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService(UserManager<EmployeeUser> _userManager,
+        IOrganizationService _organizationService,
+        IEmployeeService _employeeService,
+        IPublishEndpoint _publishEndpoint) : IAuthService
     {
-        private readonly UserManager<EmployeeUser> _userManager;
-        private readonly IOrganizationService _organizationService;
-        private readonly IEmployeeService _employeeService;
-        private readonly IPublishEndpoint _publishEndpoint;
-
-        public AuthService(UserManager<EmployeeUser> userManager,
-            IOrganizationService organizationService,
-            IEmployeeService employeeService,
-            IPublishEndpoint publishEndpoint)
-        {
-            _userManager = userManager;
-            _organizationService = organizationService;
-            _employeeService = employeeService;
-            _publishEndpoint = publishEndpoint;
-        }
-
         public async Task OrganizationRegisterAsync(OrganizationRegisterViewModel model)
         {
             var user = new EmployeeUser

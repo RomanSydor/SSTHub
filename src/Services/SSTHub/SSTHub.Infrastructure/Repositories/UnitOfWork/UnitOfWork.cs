@@ -4,21 +4,14 @@ using SSTHub.Infrastructure.Contexts;
 
 namespace SSTHub.Infrastructure.Repositories.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork(SSTHubDbContext _sSTHubDbContext) : IUnitOfWork
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
-
         IEmployeeRepository? _employeeRepository;
         IHubRepository? _hubRepository;
         IServiceRepository? _serviceRepository;
         IEventRepository? _eventRepository;
         ICustomerRepository? _customerRepository;
-        IOrganizationRepositiry? _organizationRepositiry;
-
-        public UnitOfWork(SSTHubDbContext sSTHubDbContext)
-        {
-            _sSTHubDbContext = sSTHubDbContext;
-        }
+        IOrganizationRepository? _organizationRepositiry;
 
         public IEmployeeRepository EmployeeRepository 
         {
@@ -45,7 +38,7 @@ namespace SSTHub.Infrastructure.Repositories.UnitOfWork
             get { return _customerRepository ??= new CustomerRepository(_sSTHubDbContext); }
         }
 
-        public IOrganizationRepositiry OrganizationRepositiry
+        public IOrganizationRepository OrganizationRepository
         {
             get { return _organizationRepositiry ??= new OrganizationRepository(_sSTHubDbContext); }
         }

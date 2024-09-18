@@ -7,21 +7,10 @@ using System.Collections.Immutable;
 
 namespace SSTHub.Application.Services
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService(IUnitOfWork _unitOfWork,
+        IMapper _mapper,
+        IDateTimeService _dateTimeService) : ICustomerService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IDateTimeService _dateTimeService;
-
-        public CustomerService(IUnitOfWork unitOfWork,
-            IMapper mapper,
-            IDateTimeService dateTimeService) 
-        {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _dateTimeService = dateTimeService;
-        }
-
         public async Task<int> CreateAsync(CustomerCreateViewModel createViewModel)
         {
             var customer = _mapper.Map<Customer>(createViewModel);

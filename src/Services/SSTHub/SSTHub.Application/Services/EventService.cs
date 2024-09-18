@@ -8,21 +8,10 @@ using System.Collections.Immutable;
 
 namespace SSTHub.Application.Services
 {
-    public class EventService : IEventService
+    public class EventService(IMapper _mapper,
+        IUnitOfWork _unitOfWork,
+        IDateTimeService _dateTimeService) : IEventService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IDateTimeService _dateTimeService;
-
-        public EventService(IMapper mapper,
-            IUnitOfWork unitOfWork,
-            IDateTimeService dateTimeService)
-        {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _dateTimeService = dateTimeService;
-        }
-
         public async Task<ImmutableList<EventListItemViewModel>> GetByHubIdAsync(int hubId)
         {
             var @event = await _unitOfWork.EventRepository.GetByHubIdAsync(hubId);

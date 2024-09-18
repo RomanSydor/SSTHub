@@ -7,21 +7,10 @@ using System.Collections.Immutable;
 
 namespace SSTHub.Application.Services
 {
-    public class ServiceService : IServiceService
+    public class ServiceService(IMapper _mapper,
+        IUnitOfWork _unitOfWork,
+        IDateTimeService _dateTimeService) : IServiceService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IDateTimeService _dateTimeService;
-
-        public ServiceService(IMapper mapper,
-            IUnitOfWork unitOfWork,
-            IDateTimeService dateTimeService)
-        {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _dateTimeService = dateTimeService;
-        }
-
         public async Task ChangeActiveStatusAsync(int id)
         {
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);

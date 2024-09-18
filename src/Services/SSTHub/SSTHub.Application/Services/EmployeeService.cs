@@ -7,21 +7,10 @@ using System.Collections.Immutable;
 
 namespace SSTHub.Application.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService(IMapper _mapper,
+        IUnitOfWork _unitOfWork,
+        IDateTimeService _dateTimeService) : IEmployeeService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IDateTimeService _dateTimeService;
-
-        public EmployeeService(IMapper mapper,
-            IUnitOfWork unitOfWork,
-            IDateTimeService dateTimeService)
-        {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _dateTimeService = dateTimeService;
-        }
-
         public async Task<ImmutableList<EmployeeListItemViewModel>> GetByOrganizationIdAsync(int organizationId)
         {  
             var employees = await _unitOfWork.EmployeeRepository.GetByOrganizationIdAsync(organizationId);
