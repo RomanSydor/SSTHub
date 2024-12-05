@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
 using OData.Swagger.Services;
 using SSTHub.Domain.Entities;
+using SSTHub.Domain.Interfaces.Contexts;
 using SSTHub.Domain.Interfaces.UnitOfWork;
 using SSTHub.Infrastructure.Contexts;
 using SSTHub.Infrastructure.MappingProfiles;
@@ -16,6 +17,7 @@ namespace SSTHub.API.ServiceConfigurations
         public static void AddDataBaseContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<SSTHubDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SSTHubDbConnection")));
+            services.AddScoped<ISSTHubDbContext>(p => p.GetRequiredService<SSTHubDbContext>());
         }
 
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)

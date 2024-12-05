@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
-using SSTHub.Infrastructure.Contexts;
+using SSTHub.Domain.Interfaces.Contexts;
 using System.Collections.Immutable;
 
 namespace SSTHub.Infrastructure.Repositories
 {
-    public class CustomerRepository(SSTHubDbContext _sSTHubDbContext) : ICustomerRepository
+    public class CustomerRepository(ISSTHubDbContext _sSTHubDbContext) : ICustomerRepository
     {
         public async Task CreateAsync(Customer customer)
         {

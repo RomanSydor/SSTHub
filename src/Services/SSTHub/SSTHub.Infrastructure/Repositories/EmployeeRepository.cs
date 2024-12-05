@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
-using SSTHub.Infrastructure.Contexts;
+using SSTHub.Domain.Interfaces.Contexts;
 using System.Collections.Immutable;
 
 namespace SSTHub.Infrastructure.Repositories
 {
-    public class EmployeeRepository(SSTHubDbContext _sSTHubDbContext) : IEmployeeRepository
+    public class EmployeeRepository(ISSTHubDbContext _sSTHubDbContext) : IEmployeeRepository
     {
         public async Task CreateAsync(Employee employee)
         {
@@ -20,7 +20,7 @@ namespace SSTHub.Infrastructure.Repositories
                 .Where(e => e.Id == id)
                 .SingleOrDefaultAsync();
 
-            return employee;
+            return employee!;
         }
 
         public async Task<ImmutableList<Employee>> GetByOrganizationIdAsync(int organizationId)

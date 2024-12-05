@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
+using SSTHub.Domain.Interfaces.Contexts;
 using SSTHub.Infrastructure.EntityConfigurations;
 
 namespace SSTHub.Infrastructure.Contexts
 {
-    public class SSTHubDbContext : DbContext
+    public class SSTHubDbContext : DbContext, ISSTHubDbContext
     {
         public SSTHubDbContext(DbContextOptions<SSTHubDbContext> options) 
             : base(options) 

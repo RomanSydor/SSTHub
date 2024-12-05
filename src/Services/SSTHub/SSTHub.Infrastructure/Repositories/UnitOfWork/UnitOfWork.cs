@@ -1,10 +1,10 @@
 ﻿using SSTHub.Domain.Interfaces;
+using SSTHub.Domain.Interfaces.Contexts;
 using SSTHub.Domain.Interfaces.UnitOfWork;
-using SSTHub.Infrastructure.Contexts;
 
 namespace SSTHub.Infrastructure.Repositories.UnitOfWork
 {
-    public class UnitOfWork(SSTHubDbContext _sSTHubDbContext) : IUnitOfWork
+    public class UnitOfWork(ISSTHubDbContext _sSTHubDbContext) : IUnitOfWork
     {
         IEmployeeRepository? _employeeRepository;
         IHubRepository? _hubRepository;

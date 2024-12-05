@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SSTHub.Domain.Interfaces;
+using SSTHub.Domain.Interfaces.Contexts;
 using SSTHub.Infrastructure.Contexts;
 using SSTHub.Infrastructure.Repositories;
 using SSTHub.UnitTests.Builders;
@@ -7,8 +9,8 @@ namespace SSTHub.IntegrationTests.RepositoryTests
 {
     public class EventRepositoryTests
     {
-        private readonly SSTHubDbContext _sSTHubDbContext;
-        private readonly EventRepository _eventRepository;
+        private readonly ISSTHubDbContext _sSTHubDbContext;
+        private readonly IEventRepository _eventRepository;
         private readonly EventBuilder _eventBuilder = new();
         private readonly HubBuilder _hubBuilder = new();
         private readonly OrganizationBuilder _organizationBuilder = new();

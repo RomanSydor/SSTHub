@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SSTHub.Domain.Entities;
 using SSTHub.Domain.Interfaces;
-using SSTHub.Infrastructure.Contexts;
+using SSTHub.Domain.Interfaces.Contexts;
 
 namespace SSTHub.Infrastructure.Repositories
 {
-    public class OrganizationRepository(SSTHubDbContext _sSTHubDbContext) : IOrganizationRepository
+    public class OrganizationRepository(ISSTHubDbContext _sSTHubDbContext) : IOrganizationRepository
     {
         public async Task CreateAsync(Organization organization)
         {
@@ -19,7 +19,7 @@ namespace SSTHub.Infrastructure.Repositories
                 .Where(o => o.Id == id)
                 .SingleOrDefaultAsync();
 
-            return organization;
+            return organization!;
         }
     }
 }
