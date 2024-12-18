@@ -16,7 +16,8 @@
         "SSTHub.Identity": {},
         "SSTHub.API": {},
         "SSTHub.EmailSender": {},
-        "WebIdentityBlazor": {}
+        "WebIdentityBlazor": {},
+        "WebAdminBlazor": {}
       }
     }
   }
